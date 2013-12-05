@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="app">
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <title>AngularJS demo app</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../vendors/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!--link href="css/app.css" rel="stylesheet"-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body ng-app="app" ng-controller="mainCtrl">
+<body ng-controller="mainCtrl">
 
 <p> Outer: </p>
 <input type="text" ng-model="someValue"/>
 
 <p>Directive: </p>
-<div timestamp ng-model="someValue"/>
+<div timestamp-input ng-model="someValue"/>
 
 
 
 <script src="../vendors/angular/angular.js"></script>
+<script src="../vendors/bootstrap-custom/ui-bootstrap-custom-tpls-0.7.0.js"></script>
 <script src="app.js"></script>
 <script src="../src/timestamp.js"></script>
 

@@ -1,7 +1,13 @@
-<input type="radio" ng-model="innerModel.value" value="0"> Unspecified <br/>
-<input type="radio" ng-model="innerModel.value" value="100000000"> Never <br/>
-<input type="radio" ng-model="innerModel.value" value="{{dataInputValue}}"/>
-<input type="text" ng-model="dataInputValue" ng-disabled="innerModel.value != dataInputValue">
+<input type="radio" ng-model="outerModel" value="{{UNSPECIFIED}}"> Unspecified <br/>
+<input type="radio" ng-model="outerModel" value="{{NEVER}}"> Never <br/>
+<input type="radio" ng-model="outerModel" value="{{innerValue}}"/>
+<input type="text" ng-model="innerValue" ng-disabled="outerModel != innerValue">
+<!--input type="date" ng-model="dataInputValue" ng-disabled="outerModel != innerValue"-->
+<input type="text" datepicker-popup="dd-MMMM-yyyy"
+       ng-model="dataInputValue" is-open="opened" min="''" max="'2015-06-22'"
+       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+       ng-required="false" close-text="Close" />
+
 <br/>
 
-Result:{{innerModel.value}}
+Result:{{dataInputValue}}
