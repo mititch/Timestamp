@@ -1,0 +1,7 @@
+<input type="radio" ng-model="innerModel.value" value="0"> Unspecified <br/>
+<input type="radio" ng-model="innerModel.value" value="100000000"> Never <br/>
+<input type="radio" ng-model="innerModel.value" value="{{dataInputValue}}"/>
+<input type="text" ng-model="dataInputValue" ng-disabled="innerModel.value != dataInputValue">
+<br/>
+
+Result:{{innerModel.value}}
