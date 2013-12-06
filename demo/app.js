@@ -1,6 +1,7 @@
 
 
 angular.module('app', ['ui.bootstrap', 'ui.timestamp'])
-    .controller('mainCtrl', ['$scope', '$log', function ($scope, $log) {
-        $scope.someValue = 1001010;
+    .controller('mainCtrl', ['$scope', '$log', 'Timestamp', function ($scope, $log, Timestamp) {
+        $scope.ts = new Timestamp('1303097596260000');
+        //$scope.ts = new Timestamp('0');
     }]);

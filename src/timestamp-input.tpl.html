@@ -1,0 +1,14 @@
+<input type="radio" ng-model="timestamp.value" value="{{UNSPECIFIED}}" > Unspecified <br/>
+<input type="radio" ng-model="timestamp.value" value="{{NEVER}}" > Never <br/>
+<input type="radio" ng-model="timestamp.value" value="{{value}}" ng-change="updateTimestamp(dateInputValue, null)"/>
+
+<input type="text" datepicker-popup="dd-MMMM-yyyy"
+       ng-model="dateInputValue"
+       close-text="Close" ng-disabled="timestamp.value != value"/>
+<br/>
+
+dateInputValue =     {{dateInputValue}} </br>
+timestamp.value =    {{timestamp.value}} </br>
+timestamp.toDate() = {{timestamp.toDate()}} </br>
+timestamp.toString() = {{timestamp.toString()}} </br>
+value = {{value}} </br>

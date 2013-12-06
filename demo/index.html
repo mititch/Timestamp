@@ -18,10 +18,13 @@
 <body ng-controller="mainCtrl">
 
 <p> Outer: </p>
-<input type="text" ng-model="someValue"/>
+
+ts.toDate = {{ts.toDate()}} </br>
+ts.toString = {{ts.toString()}}</br>
+ts.value = {{ts.value}} change: <input type="text" ng-model="ts.value"/></br>
 
 <p>Directive: </p>
-<div timestamp-input ng-model="someValue"/>
+<div timestamp-input="ts"/>
 
 
 
