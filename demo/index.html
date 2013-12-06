@@ -17,11 +17,14 @@
 </head>
 <body ng-controller="mainCtrl">
 
-<p> Outer: </p>
+<p> Model: </p>
 
 ts.toDate = {{ts.toDate()}} </br>
 ts.toString = {{ts.toString()}}</br>
-ts.value = {{ts.value}} change: <input type="text" ng-model="ts.value"/></br>
+ts.value = {{ts.value}} </br>
+change: <input type="text" ng-model="ts.value"/></br>
+
+</br>
 
 <p>Directive: </p>
 <div timestamp-input="ts"/>

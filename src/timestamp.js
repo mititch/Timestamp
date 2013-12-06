@@ -1,20 +1,51 @@
-angular.module('ui.timestamp', [])
+/**
+ *   The component provides the ability to work with Windows FileDate
+ *
+ *   The 'Timestamp' factory returns constructor which may be used to wrap Windows FileDate
+ *   value as JS object
+ *      Usage: new Timestamp(value)
+ *          value : string - int64 value in string format
+ *      Fields:
+ *          value - int64 value in string format
+ *      Methods:
+ *          toDate() - returns instance value as JS Date
+ *          isUnspecified() - returns true if the instance has Unspecified value
+ *          isNever() - returns true if the instance has Never value
+ *          isDate() - returns true if the instance value can be represent as JS Date
+ *          setFromDate() - updates an instance value with specified date
+ *      Overrides toString() and toJSON() functions.
+ *
+ *
+ *   The 'timestamp-input' directive may be used to update Timestamp instance by user
+ *   and controls of validations messages view
+ *      Usage: <div timestamp-input="timestamp"></div>
+ *          timestamp : Timestamp - Timestamp class instance
+ *
+ */
+
+angular.module('timestamp', [])
     .factory('Timestamp', ['$log', function ($log) {
 
         var Timestamp = function (value) {
 
+            // The difference between the Windows and Unix epoch in milliseconds
+            var WINDOWS_TIME_EPOCH_SHIFT = 11644473600000;
+
+            // Represents Unexpected value
             Timestamp.UNSPECIFIED = '0';
 
+            // Represents Never value
             Timestamp.NEVER = '9223372036854775807';
 
-            var CORRELATION = Number(11644473600000);
-
+            // Initialize instance value
             this.value = value;
 
+            // Customizes JSON stringification behavior
             this.toJSON = function () {
                 return this.value;
             };
 
+            // Overrides object.toString()
             this.toString = function () {
                 var result;
                 if (this.isNever()) {
@@ -24,50 +55,71 @@ angular.module('ui.timestamp', [])
                     result = 'UNSPECIFIED';
                 }
                 else {
-                    result = this.toDate();
+                    result = this.toDate().toString();
                 }
 
                 return result;
             };
 
+            // Converts an instance value to JS Date
             this.toDate = function () {
+                //TODO: Check is value is string
+
+                // Iv value can not be converted - return 'undefined'
                 if (!this.isDate()) {
                     return undefined;
                 }
+
                 var valueLength = this.value.length;
+
+                // Get milliseconds from FileTime string value
                 var numberValue = valueLength < 5
                     ? 0
                     : Number(this.value.slice(0, valueLength - 4));
 
-                var date = new Date(numberValue - CORRELATION);
+                // Shift epoch and convert to JS Date
+                return new Date(numberValue - WINDOWS_TIME_EPOCH_SHIFT);
 
-                return date;
             };
 
+            // Updates an instance value with specified date
+            this.setFromDate = function (date) {
+                // Get date in milliseconds add epoch shift an convert to 100 nanoseconds
+                this.value = (date.getTime() + WINDOWS_TIME_EPOCH_SHIFT) + "0000";
+            };
+
+            // Returns true if the instance has Unspecified value
             this.isUnspecified = function () {
                 return this.value == Timestamp.UNSPECIFIED;
             }
 
+            // Returns true if the instance has Unspecified value
             this.isNever = function () {
                 return this.value == Timestamp.NEVER;
             }
 
+            // Returns true if the instance value can be represent as JS Date
             this.isDate = function () {
                 return !this.isUnspecified() && !this.isNever();
             }
-
-            this.setFromDate = function (date) {
-                $log.log('time changed to - ' + date.getTime());
-                this.value = (date.getTime() + CORRELATION) + "0000";
-            };
-
         };
 
+        // Return constructor function
         return Timestamp;
 
     }])
 
-    .directive('timestampInput', ['$log', 'Timestamp', function ($log, Timestamp) {
+    .directive('timestampInput', ['Timestamp', '$log', function (Timestamp, $log) {
+
+        // Remove time part of JS Date object
+        var clearTime = function (date) {
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
+            return date;
+        };
+
         return {
             restrict: 'A',
             templateUrl: '../src/timestamp-input.tpl.html',
@@ -76,36 +128,49 @@ angular.module('ui.timestamp', [])
             },
             link: function (scope) {
 
+                // Represents 'Unspecified' timestamp value
                 scope.UNSPECIFIED = Timestamp.UNSPECIFIED;
 
+                // Represents 'Never' timestamp value
                 scope.NEVER = Timestamp.NEVER;
 
-                scope.dateInputValue = new Date();
+                // Set default datepicker value
+                scope.datepickerDate = clearTime(new Date());
 
-                scope.updateTimestamp = function (value, oldValue) {
-                    if (value !== oldValue) {
-                        scope.timestamp.setFromDate(new Date(value));
-                    }
+                // Do not update timestamp with default datepicker value
+                var skipNextUpdate = true;
+
+                // Updates a timestamp value
+                scope.updateTimestamp = function (date) {
+                    scope.timestamp.setFromDate(date);
                 };
 
-                var isDirty = false;
-
                 scope.$watch('timestamp.value', function (value) {
-                    if (value && value != scope.UNSPECIFIED && value != scope.NEVER) {
 
-                        scope.value = value;
-                        isDirty = false;
-                        scope.dateInputValue = scope.timestamp.toDate();
+                    // If the timestamp value is changed from the outside
+                    // and can be represents as date
+                    if (value != Timestamp.UNSPECIFIED && value != Timestamp.NEVER) {
+
+                        // Change datepicker value
+                        scope.datepickerDate = scope.timestamp.toDate();
+
+                        // $watch(datepickerDate) should not update timestamp in this loop
+                        skipNextUpdate = true;
+
+                        // Synchronise radio input value with timestamp value
+                        scope.valueToCompare = value;
                     }
                 });
 
-                scope.$watch('dateInputValue', function (value, oldValue) {
-                    if (value !== oldValue && isDirty) {
-                        scope.timestamp.setFromDate(new Date(value.getFullYear(), value.getMonth(), value.getDay()));
+                scope.$watch('datepickerDate', function (value, oldValue) {
+                    //if datepicker value was updated by input
+                    if (value !== oldValue && !skipNextUpdate) {
+                        // update timestamp
+                        scope.updateTimestamp(clearTime(value));
                     }
-                    isDirty = true;
+                    // Stay watching
+                    skipNextUpdate = false;
                 });
-
             }
         };
     }]);
