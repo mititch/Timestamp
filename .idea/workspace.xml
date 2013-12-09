@@ -28,10 +28,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="timestamp.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="timestamp.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/timestamp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="20" selection-start="4736" selection-end="4736" vertical-scroll-proportion="0.18353345" vertical-offset="2239" max-vertical-offset="3179">
+            <state line="32" column="43" selection-start="1319" selection-end="1319" vertical-scroll-proportion="0.0" vertical-offset="1304" max-vertical-offset="3264">
               <folding />
             </state>
           </provider>
@@ -64,6 +64,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="timestamp-input.tpl.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="6" selection-start="639" selection-end="639" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="391">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="bootstrap.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendors/bootstrap/js/bootstrap.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -73,10 +82,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/demo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="14" selection-start="932" selection-end="932" vertical-scroll-proportion="-18.961538" vertical-offset="0" max-vertical-offset="765">
+            <state line="29" column="14" selection-start="932" selection-end="932" vertical-scroll-proportion="0.88509876" vertical-offset="0" max-vertical-offset="765">
               <folding />
             </state>
           </provider>
@@ -346,7 +355,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -428,13 +437,6 @@
         <state line="22" column="37" selection-start="498" selection-end="515" vertical-scroll-proportion="0.43896714" vertical-offset="0" max-vertical-offset="8806" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="6" selection-start="639" selection-end="639" vertical-scroll-proportion="0.5756972" vertical-offset="0" max-vertical-offset="502">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="459" column="0" selection-start="15110" selection-end="15110" vertical-scroll-proportion="14.213115" vertical-offset="0" max-vertical-offset="8007">
@@ -470,9 +472,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.html">
+    <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="14" selection-start="932" selection-end="932" vertical-scroll-proportion="-18.961538" vertical-offset="0" max-vertical-offset="765">
+        <state line="17" column="6" selection-start="639" selection-end="639" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="391">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/timestamp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="43" selection-start="1319" selection-end="1319" vertical-scroll-proportion="0.0" vertical-offset="1304" max-vertical-offset="3264">
           <folding />
         </state>
       </provider>
@@ -484,9 +493,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/timestamp.js">
+    <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="20" selection-start="4736" selection-end="4736" vertical-scroll-proportion="0.18353345" vertical-offset="2239" max-vertical-offset="3179">
+        <state line="29" column="14" selection-start="932" selection-end="932" vertical-scroll-proportion="0.88509876" vertical-offset="0" max-vertical-offset="765">
           <folding />
         </state>
       </provider>

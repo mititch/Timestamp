@@ -12,7 +12,7 @@
  *          isUnspecified() - returns true if the instance has Unspecified value
  *          isNever() - returns true if the instance has Never value
  *          isDate() - returns true if the instance value can be represent as JS Date
- *          setFromDate() - updates an instance value with specified date
+ *          setFromDate() - updates an instance value from specified date
  *      Overrides toString() and toJSON() functions.
  *
  *
@@ -30,7 +30,7 @@ angular.module('timestamp', [])
             // The difference between the Windows and Unix epoch in milliseconds
             var WINDOWS_TIME_EPOCH_SHIFT = 11644473600000;
 
-            // Represents Unexpected value
+            // Represents Unspecified value
             Timestamp.UNSPECIFIED = '0';
 
             // Represents Never value
@@ -47,13 +47,16 @@ angular.module('timestamp', [])
             // Overrides object.toString()
             this.toString = function () {
                 var result;
-                if (this.isNever()) {
+                if (this.isNever())
+                {
                     result = 'NEVER';
                 }
-                else if (this.isUnspecified()) {
+                else if (this.isUnspecified())
+                {
                     result = 'UNSPECIFIED';
                 }
-                else {
+                else
+                {
                     result = this.toDate().toString();
                 }
 
@@ -64,7 +67,8 @@ angular.module('timestamp', [])
             this.toDate = function () {
 
                 // Iv value can not be converted - return 'undefined'
-                if (!this.isDate()) {
+                if (!this.isDate())
+                {
                     return undefined;
                 }
 
@@ -88,12 +92,12 @@ angular.module('timestamp', [])
 
             // Returns true if the instance has Unspecified value
             this.isUnspecified = function () {
-                return this.value == Timestamp.UNSPECIFIED;
+                return this.value === Timestamp.UNSPECIFIED;
             }
 
-            // Returns true if the instance has Unspecified value
+            // Returns true if the instance has Never value
             this.isNever = function () {
-                return this.value == Timestamp.NEVER;
+                return this.value === Timestamp.NEVER;
             }
 
             // Returns true if the instance value can be represent as JS Date
@@ -135,8 +139,8 @@ angular.module('timestamp', [])
                 // Set default datepicker value
                 scope.datepickerDate = clearTime(new Date());
 
-                // Do not update timestamp with default datepicker value
-                var skipNextUpdate = true;
+                // Indicates what model was changed by user from datepicker
+                var itIsUserInput = false;
 
                 // Updates a timestamp value
                 scope.updateTimestamp = function (date) {
@@ -147,13 +151,14 @@ angular.module('timestamp', [])
 
                     // If the timestamp value is changed from the outside
                     // and can be represents as date
-                    if (value != Timestamp.UNSPECIFIED && value != Timestamp.NEVER) {
-
+                    if (value != Timestamp.UNSPECIFIED && value != Timestamp.NEVER)
+                    {
                         // Change datepicker value with new date
                         scope.datepickerDate = scope.timestamp.toDate();
 
-                        // $watch(datepickerDate) should not update timestamp in this loop
-                        skipNextUpdate = true;
+                        // Datepicker value was updated outside directive
+                        // $watch for datepickerDate should not update timestamp in this loop
+                        itIsUserInput = false;
 
                         // Synchronise radio input value with timestamp value
                         scope.valueToCompare = value;
@@ -162,16 +167,16 @@ angular.module('timestamp', [])
 
                 scope.$watch('datepickerDate', function (value) {
 
-                    // If datepicker value was updated by datepicker input
-                    if (!skipNextUpdate)
+                    // If datepicker value was updated from datepicker
+                    if (itIsUserInput)
                     {
-                        // update timestamp
+                        // Update timestamp
                         scope.updateTimestamp(clearTime(value));
                     }
                     else
                     {
-                    // Stay watching
-                    skipNextUpdate = false;
+                        // Stay watching
+                        itIsUserInput = true;
                     }
                 });
             }
