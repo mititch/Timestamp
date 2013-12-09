@@ -134,7 +134,9 @@ describe('timestamp', function () {
                     expect(timestamp.toDate().getMinutes()).toBe(ftMap.minute);
                     expect(timestamp.toDate().getSeconds()).toBe(ftMap.second);
                     expect(timestamp.toDate().getMilliseconds()).toBe(ftMap.millisecond);
-                    expect(timestamp.toDate().getTime()).toBe(new Date(ftMap.year, ftMap.month, ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond).getTime());
+                    expect(timestamp.toDate().getTime()).toBe(new Date(ftMap.year, ftMap.month,
+                        ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond)
+                        .getTime());
                 });
 
             });
@@ -154,7 +156,9 @@ describe('timestamp', function () {
                     expect(timestamp.toDate().getMinutes()).toBe(ftMap.minute);
                     expect(timestamp.toDate().getSeconds()).toBe(ftMap.second);
                     expect(timestamp.toDate().getMilliseconds()).toBe(ftMap.millisecond);
-                    expect(timestamp.toDate().getTime()).toBe(new Date(ftMap.year, ftMap.month, ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond).getTime());
+                    expect(timestamp.toDate().getTime()).toBe(new Date(ftMap.year, ftMap.month,
+                        ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond)
+                        .getTime());
                 });
 
             });
@@ -174,7 +178,9 @@ describe('timestamp', function () {
                     expect(timestamp.toDate().getMinutes()).toBe(ftMap.minute);
                     expect(timestamp.toDate().getSeconds()).toBe(ftMap.second);
                     expect(timestamp.toDate().getMilliseconds()).toBe(ftMap.millisecond);
-                    expect(timestamp.toDate().getTime()).toBe(new Date(ftMap.year, ftMap.month, ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond).getTime());
+                    expect(timestamp.toDate().getTime()).toBe(new Date(ftMap.year, ftMap.month,
+                        ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond)
+                        .getTime());
                 });
 
             });
@@ -189,7 +195,8 @@ describe('timestamp', function () {
 
                     ftMap = WINDOWS_FILE_TIME_ARRAY[0];
                     timestamp = new Timestamp('0');
-                    timestamp.setFromDate(new Date(ftMap.year, ftMap.month, ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
+                    timestamp.setFromDate(new Date(ftMap.year, ftMap.month, ftMap.day,
+                        ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
 
                     expect(timestamp.isDate()).toBe(true);
                     expect(timestamp.value).toBe(ftMap.ft);
@@ -203,7 +210,8 @@ describe('timestamp', function () {
 
                     ftMap = WINDOWS_FILE_TIME_ARRAY[1];
                     timestamp = new Timestamp('0');
-                    timestamp.setFromDate(new Date(ftMap.year, ftMap.month, ftMap.day, ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
+                    timestamp.setFromDate(new Date(ftMap.year, ftMap.month, ftMap.day,
+                        ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
 
                     expect(timestamp.isDate()).toBe(true);
                     expect(timestamp.value).toBe(ftMap.ft);
@@ -238,20 +246,12 @@ describe('timestamp', function () {
 
         var Timestamp;
         var element;
-        var outerTimestamp
+        var outerTimestamp;
         var defaultData;                //object with default data
-
         var $rootScope;                 //root scope object reference
         var $compile;                   //compile function reference
         var $templateCache              //templateCache reference
         var validTemplate;              //object with default data
-
-        var mockNotificationService;    //notification service link
-
-        var $q;
-        var passwordSpyHelper;
-        var Password;
-        var notifications;
         var $injector;
 
         var DEFAULT_TEMPLATE =
@@ -459,7 +459,5 @@ describe('timestamp', function () {
         });
 
     });
-
-
 });
 

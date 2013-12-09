@@ -144,6 +144,7 @@ angular.module('timestamp', [])
 
                 // Updates a timestamp value
                 scope.updateTimestamp = function (date) {
+
                     scope.timestamp.setFromDate(date);
                 };
 
@@ -151,7 +152,7 @@ angular.module('timestamp', [])
 
                     // If the timestamp value is changed from the outside
                     // and can be represents as date
-                    if (value != Timestamp.UNSPECIFIED && value != Timestamp.NEVER)
+                    if (value !== Timestamp.UNSPECIFIED && value !== Timestamp.NEVER)
                     {
                         // Change datepicker value with new date
                         scope.datepickerDate = scope.timestamp.toDate();
