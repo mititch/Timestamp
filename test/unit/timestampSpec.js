@@ -234,24 +234,28 @@ describe('timestamp', function () {
     //  resetPassword directive
     //
 
-    xdescribe('timestamp-input directive', function () {
+    describe('timestamp-input directive', function () {
+
+        var Timestamp;
+        var element;
+        var outerTimestamp
+        var defaultData;                //object with default data
 
         var $rootScope;                 //root scope object reference
         var $compile;                   //compile function reference
         var $templateCache              //templateCache reference
         var validTemplate;              //object with default data
-        var defaultData;                //object with default data
+
         var mockNotificationService;    //notification service link
 
         var $q;
-        var element;
         var passwordSpyHelper;
         var Password;
         var notifications;
         var $injector;
 
         var DEFAULT_TEMPLATE =
-            '<div reset-password="password" custom-data="customData"></div>';
+            '<div timestamp-input="timestamp"></div>';
 
         function createDirective(data, template) {
             // Setup scope state
@@ -272,46 +276,17 @@ describe('timestamp', function () {
 
         beforeEach(function () {
 
-            module('myApp.components.resetPassword');
+            module('timestamp');
 
             // Provide any mocks needed
             module(function ($provide) {
 
-                passwordSpyHelper = {
-
-                    $update: function (customData) {
-                    },
-
-                    $generate: function () {
-                    }
+                Timestamp = {
+                    UNSPECIFIED: 'unspecifiedValue',
+                    NEVER: 'neverValue'
                 };
 
-                Password = function (configuration) {
-                    angular.extend(this, configuration);
-
-                    this.$update = passwordSpyHelper.$update;
-
-                    this.$generate = passwordSpyHelper.$generate;
-
-                };
-
-                notifications = {
-                    add: function () {
-                    }
-                };
-
-                /*$injector = {
-                 has: function () {
-                 return true;
-                 },
-                 get: function () {
-                 return notifications;
-                 }
-                 };*/
-
-                $provide.value('Password', Password);
-                $provide.value('Password', Password);
-                $provide.value('notificationsStorage', notifications);
+                $provide.value('Timestamp', Timestamp);
 
             });
 
@@ -319,11 +294,10 @@ describe('timestamp', function () {
             inject(function (_$rootScope_, _$compile_, _$templateCache_, _$q_) {
                 $rootScope = _$rootScope_.$new();
                 $compile = _$compile_;
-                $q = _$q_;
                 $templateCache = _$templateCache_;
             });
 
-            $templateCache.put('templates/reset-password/reset-password.tpl.html', '');
+            $templateCache.put('../src/timestamp-input.tpl.html', '<div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{UNSPECIFIED}}"> Unspecified</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{NEVER}}"> Never</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{valueToCompare}}"ng-change="updateTimestamp(datepickerDate)"/><input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"close-text="Close" ng-disabled="timestamp.value != valueToCompare"/></label></div>');
 
         });
 
@@ -336,227 +310,149 @@ describe('timestamp', function () {
 
         });
 
-        describe("when created", function () {
+        describe("when outer model changed", function () {
 
-            it("should has right scope ", function () {
+            beforeEach(function () {
+                // Reset template
+                validTemplate = DEFAULT_TEMPLATE;
+                // Reset data each time
+                defaultData = {};
 
-                var someData = {
-                    someProp: 'someVal'
+                outerTimestamp = {
+                    value: 'someValue',
+
+                    setFromDate: function (data) {
+                    },
+
+                    toDate: function () {
+                    }
                 };
 
-                $rootScope.password = 'someText';
-                $rootScope.customData = someData;
-
-                element = createDirective();
-
-                $rootScope.$apply();
-
-                expect(element.isolateScope().showPasswords).toBe(false);
-
-                expect(element.isolateScope().disableInputs).toBe(false);
-
-                expect(element.isolateScope().password.text).toBe('someText');
-
-                expect(element.isolateScope().password.confirmation).toBe('someText');
-
-                expect(element.isolateScope().customData).toBe(someData);
+                $rootScope.timestamp = outerTimestamp;
 
             });
 
-        });
 
-        describe("when scope applyChanges called", function () {
+            describe("to 'Newer'", function () {
 
-            it("should call to Password update", function () {
+                it("should not change datepicker Date ", function () {
+                    element = createDirective();
 
-                spyOn(passwordSpyHelper, '$update').andReturn({then: function () {
-                }});
+                    spyOn(outerTimestamp, 'toDate');
 
-                $rootScope.customData = 'customData';
+                    $rootScope.timestamp.value = 'neverValue';
+                    $rootScope.$apply();
 
-                element = createDirective();
+                    expect(outerTimestamp.toDate).not.toHaveBeenCalled();
 
-                $rootScope.$apply();
-
-                element.isolateScope().applyChanges();
-
-                expect(element.isolateScope().disableInputs).toBe(true);
-
-                return expect(passwordSpyHelper.$update).toHaveBeenCalledWith('customData');
+                });
 
             });
 
-            describe("and resolved", function () {
+            describe("to 'Unspecified'", function () {
 
-                var defered;
-                var theForm;
-
-                beforeEach(function () {
-                    //spyOn(form, '$setPristine');
-
-                    theForm = {
-                        $setPristine: function () {
-                        }
-                    }
-
-                    defered = $q.defer();
-
-                    spyOn(theForm, '$setPristine');
-
-                    spyOn(passwordSpyHelper, '$update').andReturn(defered.promise);
-
-                    spyOn(notifications, 'add');
+                it("should has new inner value ", function () {
 
                     element = createDirective();
 
-                    element.isolateScope().form = theForm;
+                    spyOn(outerTimestamp, 'toDate');
 
-                    element.isolateScope().applyChanges();
-                    defered.resolve({});
+                    $rootScope.timestamp.value = 'unspecifiedValue';
                     $rootScope.$apply();
 
-                });
+                    expect(outerTimestamp.toDate).not.toHaveBeenCalled();
 
-                it("should call to form.$setPristine", function () {
-                    return expect(theForm.$setPristine)
-                        .toHaveBeenCalled();
-                });
-
-                it("should update inputs", function () {
-                    return expect(element.isolateScope().disableInputs).toBe(false);
-                });
-
-                it("should call to notifications add method", function () {
-                    return expect(notifications.add)
-                        .toHaveBeenCalledWith('success', 'Password is changed.');
                 });
 
             });
 
-            describe("and rejected", function () {
-
-                var defered;
-                var theForm;
+            describe("to some other value ", function () {
 
                 beforeEach(function () {
-                    theForm = {
-                        $setPristine: function () {
-                        }
-                    }
-
-                    defered = $q.defer();
-
-                    spyOn(passwordSpyHelper, '$update').andReturn(defered.promise);
-
-                    spyOn(notifications, 'add');
 
                     element = createDirective();
 
-                    element.isolateScope().form = theForm;
+                    spyOn(outerTimestamp, 'toDate');
 
-                    element.isolateScope().applyChanges();
-                    defered.reject({});
+                    spyOn(outerTimestamp, 'setFromDate');
+
+                    $rootScope.timestamp.value = 'someNewValue';
                     $rootScope.$apply();
+                });
+
+
+                it("should has new inner value ", function () {
+
+                    expect(element.isolateScope().valueToCompare).toBe('someNewValue');
 
                 });
 
-                it("should update inputs", function () {
-                    return expect(element.isolateScope().disableInputs).toBe(false);
+                it("should change datepicker Date ", function () {
+
+                    expect(outerTimestamp.toDate).toHaveBeenCalled();
+
                 });
 
-                it("should call to notifications add method", function () {
-                    return expect(notifications.add)
-                        .toHaveBeenCalledWith('danger', 'Server can not reset password.');
+                it("should not change timestamp twice ", function () {
+
+                    expect(outerTimestamp.setFromDate).not.toHaveBeenCalled();
+
                 });
 
             });
 
         });
 
-        describe("when scope generatePassword called", function () {
+        describe("when datepicker date changed", function () {
 
-            it("should call to Password generate", function () {
+            beforeEach(function () {
+                // Reset template
+                validTemplate = DEFAULT_TEMPLATE;
+                // Reset data each time
+                defaultData = {};
 
-                spyOn(passwordSpyHelper, '$generate').andReturn({then: function () {
-                }});
+                outerTimestamp = {
+                    value: 'someValue',
 
-                $rootScope.customData = 'customData';
+                    setFromDate: function (data) {
+                    },
 
-                $rootScope.$apply();
+                    toDate: function () {
+                    }
+                };
 
+                $rootScope.timestamp = outerTimestamp;
+
+            });
+
+
+            it("should update timestamp with updated date", function () {
                 element = createDirective();
 
-                element.isolateScope().generatePassword();
+                spyOn(outerTimestamp, 'setFromDate');
 
-                expect(element.isolateScope().disableInputs).toBe(true);
-                expect(element.isolateScope().showPasswords).toBe(false);
+                var newDate = {
+                    setHours : function () {},
+                    setMinutes : function () {},
+                    setSeconds : function () {},
+                    setMilliseconds : function () {}
+                }
 
-                return expect(passwordSpyHelper.$generate).toHaveBeenCalled();
+                spyOn(newDate, 'setHours');
+                spyOn(newDate, 'setMinutes');
+                spyOn(newDate, 'setSeconds');
+                spyOn(newDate, 'setMilliseconds');
 
-            });
+                element.isolateScope().datepickerDate = newDate;
+                $rootScope.$apply();
 
-            describe("and resolved", function () {
+                expect(newDate.setHours).toHaveBeenCalled();
+                expect(newDate.setMinutes).toHaveBeenCalled();
+                expect(newDate.setSeconds).toHaveBeenCalled();
+                expect(newDate.setMilliseconds).toHaveBeenCalled();
 
-                var defered;
-                var theForm;
+                expect(outerTimestamp.setFromDate).toHaveBeenCalledWith(newDate);
 
-                beforeEach(function () {
-
-                    defered = $q.defer();
-
-                    spyOn(passwordSpyHelper, '$generate').andReturn(defered.promise);
-
-                    spyOn(notifications, 'add');
-
-                    element = createDirective();
-
-                    element.isolateScope().generatePassword();
-                    defered.resolve({});
-                    $rootScope.$apply();
-
-                });
-
-                it("should update inputs", function () {
-                    return expect(element.isolateScope().disableInputs).toBe(false);
-                    return expect(element.isolateScope().showPasswords).toBe(true);
-                });
-
-                it("should call to notifications add method", function () {
-                    return expect(notifications.add)
-                        .toHaveBeenCalledWith('success', 'New password generated.');
-                });
-
-            });
-
-            describe("and rejected", function () {
-
-                var defered;
-                var theForm;
-
-                beforeEach(function () {
-
-                    defered = $q.defer();
-
-                    spyOn(passwordSpyHelper, '$generate').andReturn(defered.promise);
-
-                    spyOn(notifications, 'add');
-
-                    element = createDirective();
-
-                    element.isolateScope().generatePassword();
-                    defered.reject({});
-                    $rootScope.$apply();
-
-                });
-
-                it("should update inputs", function () {
-                    return expect(element.isolateScope().disableInputs).toBe(false);
-                });
-
-                it("should call to notifications add method", function () {
-                    return expect(notifications.add)
-                        .toHaveBeenCalledWith('danger', 'Server can not generate password.');
-                });
 
             });
 

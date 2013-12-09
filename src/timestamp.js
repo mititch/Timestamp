@@ -17,7 +17,6 @@
  *
  *
  *   The 'timestamp-input' directive may be used to update Timestamp instance by user
- *   and controls of validations messages view
  *      Usage: <div timestamp-input="timestamp"></div>
  *          timestamp : Timestamp - Timestamp class instance
  *
@@ -63,7 +62,6 @@ angular.module('timestamp', [])
 
             // Converts an instance value to JS Date
             this.toDate = function () {
-                //TODO: Check is value is string
 
                 // Iv value can not be converted - return 'undefined'
                 if (!this.isDate()) {
@@ -151,7 +149,7 @@ angular.module('timestamp', [])
                     // and can be represents as date
                     if (value != Timestamp.UNSPECIFIED && value != Timestamp.NEVER) {
 
-                        // Change datepicker value
+                        // Change datepicker value with new date
                         scope.datepickerDate = scope.timestamp.toDate();
 
                         // $watch(datepickerDate) should not update timestamp in this loop
@@ -162,14 +160,19 @@ angular.module('timestamp', [])
                     }
                 });
 
-                scope.$watch('datepickerDate', function (value, oldValue) {
-                    //if datepicker value was updated by input
-                    if (value !== oldValue && !skipNextUpdate) {
+                scope.$watch('datepickerDate', function (value) {
+
+                    // If datepicker value was updated by datepicker input
+                    if (!skipNextUpdate)
+                    {
                         // update timestamp
                         scope.updateTimestamp(clearTime(value));
                     }
+                    else
+                    {
                     // Stay watching
                     skipNextUpdate = false;
+                    }
                 });
             }
         };
