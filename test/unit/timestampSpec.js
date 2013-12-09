@@ -4,6 +4,39 @@
 
 describe('timestamp', function () {
 
+    var WINDOWS_FILE_TIME_ARRAY = [
+        {
+            ft: '120513686052310000',
+            hour: 12,
+            minute: 23,
+            second: 25,
+            millisecond: 231,
+            year: 1982,
+            month: 10,
+            day: 23
+        },
+        {
+            ft: '41341461012110000',
+            hour: 23,
+            minute: 55,
+            second: 1,
+            millisecond: 211,
+            year: 1732,
+            month: 0,
+            day: 3
+        },
+        {
+            ft: '167569269012110000',
+            hour: 23,
+            minute: 55,
+            second: 1,
+            millisecond: 211,
+            year: 2132,
+            month: 0,
+            day: 3
+        }
+    ];
+
     //
     //  Timestamp factory
     //
@@ -12,38 +45,7 @@ describe('timestamp', function () {
 
         var Timestamp;
         var timestamp;
-        var WINDOWS_FILE_TIME_ARRAY = [
-            {
-                ft: '120513686052310000',
-                hour: 12,
-                minute: 23,
-                second: 25,
-                millisecond: 231,
-                year: 1982,
-                month: 10,
-                day: 23
-            },
-            {
-                ft: '41341461012110000',
-                hour: 23,
-                minute: 55,
-                second: 1,
-                millisecond: 211,
-                year: 1732,
-                month: 0,
-                day: 3
-            },
-            {
-                ft: '167569269012110000',
-                hour: 23,
-                minute: 55,
-                second: 1,
-                millisecond: 211,
-                year: 2132,
-                month: 0,
-                day: 3
-            }
-        ];
+
 
         var ftMap;
 
@@ -239,23 +241,17 @@ describe('timestamp', function () {
     });
 
     //
-    //  resetPassword directive
+    //  directive
     //
 
-    describe('timestamp-input directive', function () {
-
-        var Timestamp;
-        var element;
-        var outerTimestamp;
+    describe('directive', function ()
+    {
         var defaultData;                //object with default data
         var $rootScope;                 //root scope object reference
         var $compile;                   //compile function reference
         var $templateCache              //templateCache reference
         var validTemplate;              //object with default data
-        var $injector;
 
-        var DEFAULT_TEMPLATE =
-            '<div timestamp-input="timestamp"></div>';
 
         function createDirective(data, template) {
             // Setup scope state
@@ -274,128 +270,199 @@ describe('timestamp', function () {
             return element;
         }
 
-        beforeEach(function () {
+        //
+        //  timestampInput directive
+        //
 
-            module('timestamp');
+        describe('timestamp-input directive', function () {
 
-            // Provide any mocks needed
-            module(function ($provide) {
+            var Timestamp;
+            var element;
+            var outerTimestamp;
+            var $injector;
 
-                Timestamp = {
-                    UNSPECIFIED: 'unspecifiedValue',
-                    NEVER: 'neverValue'
-                };
+            var DEFAULT_TEMPLATE =
+                '<timestamp-input ng-model="timestamp"></div>';
 
-                $provide.value('Timestamp', Timestamp);
+            beforeEach(function () {
+
+                module('timestamp');
+
+                // Provide any mocks needed
+                module(function ($provide) {
+
+                    Timestamp = {
+                        UNSPECIFIED: 'unspecifiedValue',
+                        NEVER: 'neverValue'
+                    };
+
+                    $provide.value('Timestamp', Timestamp);
+
+                });
+
+                // Inject in angular and module constructs
+                inject(function (_$rootScope_, _$compile_, _$templateCache_) {
+                    $rootScope = _$rootScope_.$new();
+                    $compile = _$compile_;
+                    $templateCache = _$templateCache_;
+                });
+
+                $templateCache.put('../src/timestamp-input.tpl.html', '<div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{UNSPECIFIED}}"> Unspecified</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{NEVER}}"> Never</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{valueToCompare}}"ng-change="updateTimestamp(datepickerDate)"/><input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"close-text="Close" ng-disabled="timestamp.value != valueToCompare"/></label></div>');
 
             });
-
-            // Inject in angular and module constructs
-            inject(function (_$rootScope_, _$compile_, _$templateCache_, _$q_) {
-                $rootScope = _$rootScope_.$new();
-                $compile = _$compile_;
-                $templateCache = _$templateCache_;
-            });
-
-            $templateCache.put('../src/timestamp-input.tpl.html', '<div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{UNSPECIFIED}}"> Unspecified</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{NEVER}}"> Never</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{valueToCompare}}"ng-change="updateTimestamp(datepickerDate)"/><input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"close-text="Close" ng-disabled="timestamp.value != valueToCompare"/></label></div>');
-
-        });
-
-        beforeEach(function () {
-            // Reset template
-            validTemplate = DEFAULT_TEMPLATE;
-
-            // Reset data each time
-            defaultData = {};
-
-        });
-
-        describe("when outer model changed", function () {
 
             beforeEach(function () {
                 // Reset template
                 validTemplate = DEFAULT_TEMPLATE;
+
                 // Reset data each time
                 defaultData = {};
 
-                outerTimestamp = {
-                    value: 'someValue',
-
-                    setFromDate: function (data) {
-                    },
-
-                    toDate: function () {
-                    }
-                };
-
-                $rootScope.timestamp = outerTimestamp;
-
             });
 
-
-            describe("to 'Newer'", function () {
-
-                it("should not change datepicker Date ", function () {
-                    element = createDirective();
-
-                    spyOn(outerTimestamp, 'toDate');
-
-                    $rootScope.timestamp.value = 'neverValue';
-                    $rootScope.$apply();
-
-                    expect(outerTimestamp.toDate).not.toHaveBeenCalled();
-
-                });
-
-            });
-
-            describe("to 'Unspecified'", function () {
-
-                it("should has new inner value ", function () {
-
-                    element = createDirective();
-
-                    spyOn(outerTimestamp, 'toDate');
-
-                    $rootScope.timestamp.value = 'unspecifiedValue';
-                    $rootScope.$apply();
-
-                    expect(outerTimestamp.toDate).not.toHaveBeenCalled();
-
-                });
-
-            });
-
-            describe("to some other value ", function () {
+            describe("when outer model changed", function () {
 
                 beforeEach(function () {
+                    // Reset template
+                    validTemplate = DEFAULT_TEMPLATE;
+                    // Reset data each time
+                    defaultData = {};
 
+                    outerTimestamp = {
+                        value: 'someValue',
+
+                        setFromDate: function (data) {
+                        },
+
+                        toDate: function () {
+                        }
+                    };
+
+                    $rootScope.timestamp = outerTimestamp;
+
+                });
+
+
+                describe("to 'Newer'", function () {
+
+                    it("should not change datepicker Date ", function () {
+                        element = createDirective();
+
+                        spyOn(outerTimestamp, 'toDate');
+
+                        $rootScope.timestamp.value = 'neverValue';
+                        $rootScope.$apply();
+
+                        expect(outerTimestamp.toDate).not.toHaveBeenCalled();
+
+                    });
+
+                });
+
+                describe("to 'Unspecified'", function () {
+
+                    it("should has new inner value ", function () {
+
+                        element = createDirective();
+
+                        spyOn(outerTimestamp, 'toDate');
+
+                        $rootScope.timestamp.value = 'unspecifiedValue';
+                        $rootScope.$apply();
+
+                        expect(outerTimestamp.toDate).not.toHaveBeenCalled();
+
+                    });
+
+                });
+
+                describe("to some other value ", function () {
+
+                    beforeEach(function () {
+
+                        element = createDirective();
+
+                        spyOn(outerTimestamp, 'toDate');
+
+                        spyOn(outerTimestamp, 'setFromDate');
+
+                        $rootScope.timestamp.value = 'someNewValue';
+                        $rootScope.$apply();
+                    });
+
+
+                    it("should has new inner value ", function () {
+
+                        expect(element.isolateScope().valueToCompare).toBe('someNewValue');
+
+                    });
+
+                    it("should change datepicker Date ", function () {
+
+                        expect(outerTimestamp.toDate).toHaveBeenCalled();
+
+                    });
+
+                    it("should not change timestamp twice ", function () {
+
+                        expect(outerTimestamp.setFromDate).not.toHaveBeenCalled();
+
+                    });
+
+                });
+
+            });
+
+            describe("when datepicker date changed", function () {
+
+                beforeEach(function () {
+                    // Reset template
+                    validTemplate = DEFAULT_TEMPLATE;
+                    // Reset data each time
+                    defaultData = {};
+
+                    outerTimestamp = {
+                        value: 'someValue',
+
+                        setFromDate: function (data) {
+                        },
+
+                        toDate: function () {
+                        }
+                    };
+
+                    $rootScope.timestamp = outerTimestamp;
+
+                });
+
+
+                it("should update timestamp with updated date", function () {
                     element = createDirective();
-
-                    spyOn(outerTimestamp, 'toDate');
 
                     spyOn(outerTimestamp, 'setFromDate');
 
-                    $rootScope.timestamp.value = 'someNewValue';
+                    var newDate = {
+                        setHours : function () {},
+                        setMinutes : function () {},
+                        setSeconds : function () {},
+                        setMilliseconds : function () {}
+                    }
+
+                    spyOn(newDate, 'setHours');
+                    spyOn(newDate, 'setMinutes');
+                    spyOn(newDate, 'setSeconds');
+                    spyOn(newDate, 'setMilliseconds');
+
+                    element.isolateScope().datepickerDate = newDate;
                     $rootScope.$apply();
-                });
 
+                    expect(newDate.setHours).toHaveBeenCalled();
+                    expect(newDate.setMinutes).toHaveBeenCalled();
+                    expect(newDate.setSeconds).toHaveBeenCalled();
+                    expect(newDate.setMilliseconds).toHaveBeenCalled();
 
-                it("should has new inner value ", function () {
+                    expect(outerTimestamp.setFromDate).toHaveBeenCalledWith(newDate);
 
-                    expect(element.isolateScope().valueToCompare).toBe('someNewValue');
-
-                });
-
-                it("should change datepicker Date ", function () {
-
-                    expect(outerTimestamp.toDate).toHaveBeenCalled();
-
-                });
-
-                it("should not change timestamp twice ", function () {
-
-                    expect(outerTimestamp.setFromDate).not.toHaveBeenCalled();
 
                 });
 
@@ -403,59 +470,184 @@ describe('timestamp', function () {
 
         });
 
-        describe("when datepicker date changed", function () {
+        //
+        //  timestampMoreThen directive
+        //
+
+        describe('timestamp-more-then directive', function() {
+
+            var modelCtrl, modelValue, formElement;
+            var Timestamp;
+
+            var DEFAULT_TEMPLATE =
+                '<form name="testForm">' +
+                    '<timestamp-input name="testInput" ' +
+                    'ng-model="data.timestamp" ' +
+                    'timestamp-more-then="{{data.validateValue}}">' +
+                    '</form>';
 
             beforeEach(function () {
+
+                module('timestamp');
+
+                // Provide any mocks needed
+                module(function ($provide) {
+
+                });
+
+                // Inject in angular and module constructs
+                inject(function (_$rootScope_, _$compile_, _$templateCache_, _Timestamp_) {
+                    $rootScope = _$rootScope_.$new();
+                    $compile = _$compile_;
+                    $templateCache = _$templateCache_;
+                    Timestamp = _Timestamp_;
+                });
+
+                $templateCache.put('../src/timestamp-input.tpl.html', '<div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{UNSPECIFIED}}"> Unspecified</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{NEVER}}"> Never</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{valueToCompare}}"ng-change="updateTimestamp(datepickerDate)"/><input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"close-text="Close" ng-disabled="timestamp.value != valueToCompare"/></label></div>');
+
                 // Reset template
                 validTemplate = DEFAULT_TEMPLATE;
+
                 // Reset data each time
-                defaultData = {};
-
-                outerTimestamp = {
-                    value: 'someValue',
-
-                    setFromDate: function (data) {
-                    },
-
-                    toDate: function () {
-                    }
+                defaultData = {
+                    timestamp : new Timestamp(WINDOWS_FILE_TIME_ARRAY[0].ft),  //Middle value
+                    validateValue : WINDOWS_FILE_TIME_ARRAY[1].ft           //Less then value
                 };
 
-                $rootScope.timestamp = outerTimestamp;
-
             });
 
+            it('should be valid initially', function() {
 
-            it("should update timestamp with updated date", function () {
-                element = createDirective();
-
-                spyOn(outerTimestamp, 'setFromDate');
-
-                var newDate = {
-                    setHours : function () {},
-                    setMinutes : function () {},
-                    setSeconds : function () {},
-                    setMilliseconds : function () {}
-                }
-
-                spyOn(newDate, 'setHours');
-                spyOn(newDate, 'setMinutes');
-                spyOn(newDate, 'setSeconds');
-                spyOn(newDate, 'setMilliseconds');
-
-                element.isolateScope().datepickerDate = newDate;
+                formElement = createDirective();
                 $rootScope.$apply();
 
-                expect(newDate.setHours).toHaveBeenCalled();
-                expect(newDate.setMinutes).toHaveBeenCalled();
-                expect(newDate.setSeconds).toHaveBeenCalled();
-                expect(newDate.setMilliseconds).toHaveBeenCalled();
+                modelCtrl = $rootScope.testForm.testInput;
 
-                expect(outerTimestamp.setFromDate).toHaveBeenCalledWith(newDate);
+                expect(modelCtrl.$valid).toBeTruthy();
+            });
 
+            describe('model value changes', function() {
+
+                beforeEach(function () {
+                    formElement = createDirective();
+                    $rootScope.$apply();
+                    modelCtrl = $rootScope.testForm.testInput;
+                });
+
+
+                it('should be invalid if the model changes to invalid', function() {
+                    $rootScope.data.timestamp.value = Timestamp.UNSPECIFIED;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeFalsy();
+                });
+
+                it('should be invalid if the validate value changes', function() {
+                    $rootScope.data.validateValue = Timestamp.NEVER;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeFalsy();
+                });
+
+                it('should be valid if the modelValue changes to valid', function() {
+                    $rootScope.data.timestamp.value = Timestamp.NEVER;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeTruthy();
+
+                    $rootScope.data.validateValue = Timestamp.UNSPECIFIED;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeTruthy();
+
+                });
+            });
+        });
+
+        //
+        //  timestampLessThen directive
+        //
+
+        describe('timestamp-less-then directive', function() {
+
+            var modelCtrl, modelValue, formElement;
+            var Timestamp;
+
+            var DEFAULT_TEMPLATE =
+                '<form name="testForm">' +
+                    '<timestamp-input name="testInput" ' +
+                    'ng-model="data.timestamp" ' +
+                    'timestamp-less-then="{{data.validateValue}}">' +
+                    '</form>';
+
+            beforeEach(function () {
+
+                module('timestamp');
+
+                // Provide any mocks needed
+                module(function ($provide) {
+
+                });
+
+                // Inject in angular and module constructs
+                inject(function (_$rootScope_, _$compile_, _$templateCache_, _Timestamp_) {
+                    $rootScope = _$rootScope_.$new();
+                    $compile = _$compile_;
+                    $templateCache = _$templateCache_;
+                    Timestamp = _Timestamp_;
+                });
+
+                $templateCache.put('../src/timestamp-input.tpl.html', '<div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{UNSPECIFIED}}"> Unspecified</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{NEVER}}"> Never</label></div><div class="radio"><label><input type="radio" ng-model="timestamp.value" value="{{valueToCompare}}"ng-change="updateTimestamp(datepickerDate)"/><input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"close-text="Close" ng-disabled="timestamp.value != valueToCompare"/></label></div>');
+
+                // Reset template
+                validTemplate = DEFAULT_TEMPLATE;
+
+                // Reset data each time
+                defaultData = {
+                    timestamp : new Timestamp(WINDOWS_FILE_TIME_ARRAY[0].ft),  //Middle value
+                    validateValue : WINDOWS_FILE_TIME_ARRAY[2].ft           //More then value
+                };
 
             });
 
+            it('should be valid initially', function() {
+
+                formElement = createDirective();
+                $rootScope.$apply();
+
+                modelCtrl = $rootScope.testForm.testInput;
+
+                expect(modelCtrl.$valid).toBeTruthy();
+            });
+
+            describe('model value changes', function() {
+
+                beforeEach(function () {
+                    formElement = createDirective();
+                    $rootScope.$apply();
+                    modelCtrl = $rootScope.testForm.testInput;
+                });
+
+
+                it('should be invalid if the model changes to invalid', function() {
+                    $rootScope.data.timestamp.value = Timestamp.NEVER;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeFalsy();
+                });
+
+                it('should be invalid if the validate value changes', function() {
+                    $rootScope.data.validateValue = Timestamp.UNSPECIFIED;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeFalsy();
+                });
+
+                it('should be valid if the modelValue changes to valid', function() {
+                    $rootScope.data.timestamp.value = Timestamp.UNSPECIFIED;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeTruthy();
+
+                    $rootScope.data.validateValue = Timestamp.NEVER;
+                    $rootScope.$digest();
+                    expect(modelCtrl.$valid).toBeTruthy();
+
+                });
+            });
         });
 
     });

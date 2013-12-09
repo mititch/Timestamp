@@ -17,8 +17,23 @@
  *
  *
  *   The 'timestamp-input' directive may be used to update Timestamp instance by user
- *      Usage: <div timestamp-input="timestamp"></div>
+ *      Usage: <timestamp-input ng-model="timestamp"></div>
  *          timestamp : Timestamp - Timestamp class instance
+ *
+ *   The 'timestamp-from' directive can be used to validate 'timestamp-input' minimal value.
+ *   Input is considered valid if value more then specified in attribute
+ *      Usage: <timestamp-input ng-model="timestamp" timestamp-more-then="minValue">
+ *          minValue : string or Angular expression - int64 value in string format
+ *      Timestamp class can be used to represent Unspecified value (Timestamp.UNSPECIFIED)
+ *      or get value from specified date (Timestamp.fromDate(date) where date is JS Date object).
+ *
+ *   The 'timestamp-less-then' directive can be used to validate 'timestamp-input' maximum value.
+ *   Input is considered valid if value less then specified in attribute
+ *      Usage: <timestamp-input ng-model="timestamp" timestamp-less-then="maxValue">
+ *          maxValue : string or Angular expression - int64 value in string format
+ *      Timestamp class can be used to represent Never value (Timestamp.NEVER)
+ *      or get value from specified date (Timestamp.fromDate(date) where date is JS Date object).
+ *
  *
  */
 
@@ -36,6 +51,12 @@ angular.module('timestamp', [])
             // Represents Never value
             Timestamp.NEVER = '9223372036854775807';
 
+            // Returns timestamp value calculated with specified date
+            Timestamp.fromDate = function (date) {
+                // Get date in milliseconds add epoch shift an convert to 100 nanoseconds
+                return (date.getTime() + WINDOWS_TIME_EPOCH_SHIFT) + "0000";
+            };
+
             // Initialize instance value
             this.value = value;
 
@@ -47,47 +68,46 @@ angular.module('timestamp', [])
             // Overrides object.toString()
             this.toString = function () {
                 var result;
-                if (this.isNever())
-                {
+                if (this.isNever()) {
                     result = 'NEVER';
                 }
-                else if (this.isUnspecified())
-                {
+                else if (this.isUnspecified()) {
                     result = 'UNSPECIFIED';
                 }
-                else
-                {
+                else {
                     result = this.toDate().toString();
                 }
 
                 return result;
             };
 
+            this.isMoreThen = function (valueToCompare) {
+                return convertInt64StringToMilliseconds(this.value)
+                    > convertInt64StringToMilliseconds(valueToCompare);
+            };
+
+            this.isLessThen = function (valueToCompare) {
+                return convertInt64StringToMilliseconds(this.value)
+                    < convertInt64StringToMilliseconds(valueToCompare);
+            };
+
             // Converts an instance value to JS Date
             this.toDate = function () {
 
                 // Iv value can not be converted - return 'undefined'
-                if (!this.isDate())
-                {
+                if (!this.isDate()) {
                     return undefined;
                 }
 
-                var valueLength = this.value.length;
-
-                // Get milliseconds from FileTime string value
-                var numberValue = valueLength < 5
-                    ? 0
-                    : Number(this.value.slice(0, valueLength - 4));
-
-                // Shift epoch and convert to JS Date
-                return new Date(numberValue - WINDOWS_TIME_EPOCH_SHIFT);
+                // Get in milliseconds, shift epoch and convert to JS Date
+                return new Date(convertInt64StringToMilliseconds(this.value)
+                    - WINDOWS_TIME_EPOCH_SHIFT);
 
             };
 
             // Updates an instance value with specified date
             this.setFromDate = function (date) {
-                // Get date in milliseconds add epoch shift an convert to 100 nanoseconds
-                this.value = (date.getTime() + WINDOWS_TIME_EPOCH_SHIFT) + "0000";
+                this.value = Timestamp.fromDate(date);
             };
 
             // Returns true if the instance has Unspecified value
@@ -104,6 +124,18 @@ angular.module('timestamp', [])
             this.isDate = function () {
                 return !this.isUnspecified() && !this.isNever();
             }
+
+            // Convert Int64 string value to Date
+            var convertInt64StringToMilliseconds = function(value) {
+
+                var valueLength = value.length;
+
+                // Return milliseconds from FileTime string value
+                return numberValue = valueLength < 5
+                    ? 0
+                    : Number(value.slice(0, valueLength - 4));
+            };
+
         };
 
         // Return constructor function
@@ -123,10 +155,10 @@ angular.module('timestamp', [])
         };
 
         return {
-            restrict: 'A',
+            restrict: 'AE',
             templateUrl: '../src/timestamp-input.tpl.html',
             scope: {
-                timestamp: '=timestampInput'
+                timestamp: '=ngModel'
             },
             link: function (scope) {
 
@@ -152,8 +184,7 @@ angular.module('timestamp', [])
 
                     // If the timestamp value is changed from the outside
                     // and can be represents as date
-                    if (value !== Timestamp.UNSPECIFIED && value !== Timestamp.NEVER)
-                    {
+                    if (value !== Timestamp.UNSPECIFIED && value !== Timestamp.NEVER) {
                         // Change datepicker value with new date
                         scope.datepickerDate = scope.timestamp.toDate();
 
@@ -169,19 +200,105 @@ angular.module('timestamp', [])
                 scope.$watch('datepickerDate', function (value) {
 
                     // If datepicker value was updated from datepicker
-                    if (itIsUserInput)
-                    {
+                    if (itIsUserInput) {
                         // Update timestamp
                         scope.updateTimestamp(clearTime(value));
                     }
-                    else
-                    {
+                    else {
                         // Stay watching
                         itIsUserInput = true;
                     }
                 });
             }
         };
-    }]);
+    }])
+
+    .directive('timestampMoreThen', ['$log',
+        function ($log) {
+            return {
+                require: '?ngModel',
+                restrict: 'A',
+                link: function (scope, element, attrs, ngModelCtrl) {
+
+                    // If ng-model exist
+                    if (ngModelCtrl) {
+
+                        // Deep watch for ngModelCtrl.$modelValue change
+                        scope.$watch(
+                            function () {
+                                return ngModelCtrl.$modelValue;
+                            },
+                            function (value) {
+                                validate(value, null);
+                            },
+                            true
+                        );
+
+                        // Observe the attribute value
+                        attrs.$observe('timestampMoreThen',
+                            function (value) {
+                                validate(null, value);
+                            }
+                        );
+
+                        var validate = function (innerModel, validationAttrValue) {
+
+                            var timestamp = innerModel || ngModelCtrl.$viewValue ;
+
+                            var validationValue = validationAttrValue || attrs.timestampMoreThen;
+
+                            // Set validity
+                            ngModelCtrl.$setValidity('timestampFrom',
+                                timestamp.isMoreThen(validationValue));
+                        };
+                    }
+                }
+            };
+        }]
+    )
+
+    .directive('timestampLessThen', ['$log',
+        function ($log) {
+            return {
+                require: '?ngModel',
+                restrict: 'A',
+                link: function (scope, element, attrs, ngModelCtrl) {
+
+                    // If ng-model exist
+                    if (ngModelCtrl) {
+
+                        // Deep watch for ngModelCtrl.$modelValue change
+                        scope.$watch(
+                            function () {
+                                return ngModelCtrl.$modelValue;
+                            },
+                            function (value) {
+                                validate(value, null);
+                            },
+                            true
+                        );
+
+                        // Observe the attribute value
+                        attrs.$observe('timestampLessThen',
+                            function (value) {
+                                validate(null, value);
+                            }
+                        );
+
+                        var validate = function (innerModel, validationAttrValue) {
+
+                            var timestamp = innerModel || ngModelCtrl.$viewValue ;
+
+                            var validationValue = validationAttrValue || attrs.timestampLessThen;
+
+                            // Set validity
+                            ngModelCtrl.$setValidity('timestampFrom',
+                                timestamp.isLessThen(validationValue));
+                        };
+                    }
+                }
+            };
+        }]
+    );
 
 
