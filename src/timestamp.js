@@ -81,14 +81,10 @@ angular.module('timestamp', [])
                 return result;
             };
 
-            this.isMoreThen = function (valueToCompare) {
+            // Compares an instance value with specified value
+            this.compareTo = function (valueToCompare) {
                 return convertInt64StringToMilliseconds(this.value)
-                    > convertInt64StringToMilliseconds(valueToCompare);
-            };
-
-            this.isLessThen = function (valueToCompare) {
-                return convertInt64StringToMilliseconds(this.value)
-                    < convertInt64StringToMilliseconds(valueToCompare);
+                - convertInt64StringToMilliseconds(valueToCompare);
             };
 
             // Converts an instance value to JS Date
@@ -221,8 +217,8 @@ angular.module('timestamp', [])
                 link: function (scope, element, attrs, ngModelCtrl) {
 
                     // If ng-model exist
-                    if (ngModelCtrl) {
-
+                    if (ngModelCtrl)
+                    {
                         // Deep watch for ngModelCtrl.$modelValue change
                         scope.$watch(
                             function () {
@@ -248,8 +244,8 @@ angular.module('timestamp', [])
                             var validationValue = validationAttrValue || attrs.timestampMoreThen;
 
                             // Set validity
-                            ngModelCtrl.$setValidity('timestampFrom',
-                                timestamp.isMoreThen(validationValue));
+                            ngModelCtrl.$setValidity('timestampMoreThen',
+                                timestamp.compareTo(validationValue) > 0);
                         };
                     }
                 }
@@ -265,8 +261,8 @@ angular.module('timestamp', [])
                 link: function (scope, element, attrs, ngModelCtrl) {
 
                     // If ng-model exist
-                    if (ngModelCtrl) {
-
+                    if (ngModelCtrl)
+                    {
                         // Deep watch for ngModelCtrl.$modelValue change
                         scope.$watch(
                             function () {
@@ -292,8 +288,8 @@ angular.module('timestamp', [])
                             var validationValue = validationAttrValue || attrs.timestampLessThen;
 
                             // Set validity
-                            ngModelCtrl.$setValidity('timestampFrom',
-                                timestamp.isLessThen(validationValue));
+                            ngModelCtrl.$setValidity('timestampLessThen',
+                                timestamp.compareTo(validationValue) < 0);
                         };
                     }
                 }

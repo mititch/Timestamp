@@ -7,8 +7,8 @@ angular.module('app', ['ui.bootstrap', 'timestamp'])
 
             $scope.ts = new Timestamp('1303097596260000');
 
-            //$scope.validationValue = Timestamp.UNSPECIFIED;
-            $scope.validationValue = Timestamp.NEVER;
+            $scope.validationValue = Timestamp.UNSPECIFIED;
+            //$scope.validationValue = Timestamp.NEVER;
             //$scope.validationValue = Timestamp.fromDate(new Date());
 
         }

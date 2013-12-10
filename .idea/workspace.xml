@@ -26,12 +26,8 @@
       <file leaf-file-name="timestamp.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/timestamp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="33" selection-start="5649" selection-end="5649" vertical-scroll-proportion="2.9068396" vertical-offset="0" max-vertical-offset="2720">
-              <folding>
-                <element signature="e#5649#8116#0" expanded="false" />
-                <element signature="e#8155#9694#0" expanded="false" />
-                <element signature="e#9738#11277#0" expanded="false" />
-              </folding>
+            <state line="212" column="25" selection-start="8033" selection-end="8033" vertical-scroll-proportion="1.2806604" vertical-offset="2518" max-vertical-offset="5202">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,7 +35,7 @@
       <file leaf-file-name="karma.conf.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/unit/karma.conf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="41" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.0" vertical-offset="419" max-vertical-offset="1292">
+            <state line="60" column="41" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1309">
               <folding />
             </state>
           </provider>
@@ -66,7 +62,7 @@
       <file leaf-file-name="timestamp-input.tpl.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="24" selection-start="560" selection-end="560" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="391">
+            <state line="15" column="24" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="391">
               <folding />
             </state>
           </provider>
@@ -84,7 +80,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="36" selection-start="937" selection-end="938" vertical-scroll-proportion="-17.538462" vertical-offset="71" max-vertical-offset="918">
+            <state line="31" column="36" selection-start="937" selection-end="938" vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="918">
               <folding />
             </state>
           </provider>
@@ -124,10 +120,10 @@
         <option value="$PROJECT_DIR$/src/timestamp.tpl.html" />
         <option value="$PROJECT_DIR$/src/timestamp-input.tpl.html" />
         <option value="$PROJECT_DIR$/test/unit/karma.conf.js" />
-        <option value="$PROJECT_DIR$/src/timestamp.js" />
-        <option value="$PROJECT_DIR$/demo/app.js" />
         <option value="$PROJECT_DIR$/demo/index.html" />
         <option value="$PROJECT_DIR$/test/unit/timestampSpec.js" />
+        <option value="$PROJECT_DIR$/demo/app.js" />
+        <option value="$PROJECT_DIR$/src/timestamp.js" />
       </list>
     </option>
   </component>
@@ -166,6 +162,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -278,7 +275,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -297,6 +293,14 @@
     </key>
   </component>
   <component name="RunManager" selected="Karma.karma.conf.js">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -307,23 +311,15 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -353,8 +349,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -392,11 +388,7 @@
     <entry file="file://$PROJECT_DIR$/src/timestamp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="59" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1071">
-          <folding>
-            <element signature="e#5649#8116#0" expanded="false" />
-            <element signature="e#8155#9694#0" expanded="false" />
-            <element signature="e#9738#11277#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -463,7 +455,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="24" selection-start="560" selection-end="560" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="391">
+        <state line="15" column="24" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="391">
           <folding />
         </state>
       </provider>
@@ -477,7 +469,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="36" selection-start="937" selection-end="938" vertical-scroll-proportion="-17.538462" vertical-offset="71" max-vertical-offset="918">
+        <state line="31" column="36" selection-start="937" selection-end="938" vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="918">
           <folding />
         </state>
       </provider>
@@ -500,12 +492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="33" selection-start="5649" selection-end="5649" vertical-scroll-proportion="2.9068396" vertical-offset="0" max-vertical-offset="2720">
-          <folding>
-            <element signature="e#5649#8116#0" expanded="false" />
-            <element signature="e#8155#9694#0" expanded="false" />
-            <element signature="e#9738#11277#0" expanded="false" />
-          </folding>
+        <state line="212" column="25" selection-start="8033" selection-end="8033" vertical-scroll-proportion="1.2806604" vertical-offset="2518" max-vertical-offset="5202">
+          <folding />
         </state>
       </provider>
     </entry>
