@@ -187,6 +187,11 @@ angular.module('timestamp', [])
 
                 };
 
+                scope.addD = function ()
+                {
+                    scope.datepickerDate.setDate(10);
+                }
+
                 scope.$watch(function () {
                         return scope.timestamp;
                     },
