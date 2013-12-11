@@ -38,6 +38,36 @@
  */
 
 angular.module('timestamp', [])
+    .config(['$provide', function ($provide) {
+
+        $provide.decorator('$parse', function ($delegate) {
+            return function (expression) {
+                var parsed = $delegate(expression);
+                if (parsed.assign) {
+                    var dac =parsed;
+                }
+
+                // getter
+                var wrapper = function (scope, locals) {
+                    var val = parsed(scope, locals);
+
+                    return val;
+                };
+
+                // setter
+                wrapper.assign = function (scope, value) {
+                    var val = parsed(scope);
+
+                    return parsed.assign(scope, value);
+                };
+
+                return wrapper;
+            };
+        });
+
+
+    }])
+
     .factory('Timestamp', ['$log', function ($log) {
 
         var Timestamp = function (value) {
@@ -132,6 +162,18 @@ angular.module('timestamp', [])
                     : Number(value.slice(0, valueLength - 4));
             };
 
+            this.setter = null;
+            this.getter = function () {
+                if (!(this.setter && this.setter.value == this.value)) {
+                    $log.log('getter');
+                    this.setter = {
+                        value: this.value,
+                        instance: this
+                    };
+                }
+                return this.setter;
+            }
+
         };
 
         // Return constructor function
@@ -155,7 +197,7 @@ angular.module('timestamp', [])
             restrict: 'AE',
             templateUrl: '../src/timestamp-input.tpl.html',
             scope: {
-                timestamp: '=ngModel'
+                timestamp: '=ngModel' // new object
             },
             link: function (scope, element, attrs, ngModelCtrl) {
 
@@ -174,50 +216,54 @@ angular.module('timestamp', [])
                 // Updates a timestamp value
                 scope.setViewValue = function (value) {
 
-                    if (angular.isDate(value))
-                    {
-                        scope.timestamp.setFromDate(value);
+                    if (angular.isDate(value)) {
+
+                        ngModelCtrl.$viewValue.instance.setFromDate(value);
+                        scope.timestamp.value = ngModelCtrl.$viewValue.instance.value;
+                        scope.valueToCompare = ngModelCtrl.$viewValue.instance.value;
+
                     }
-                    else
-                    {
-                        scope.timestamp.value = value;
+                    else {
+                        ngModelCtrl.$viewValue.instance.value = value;
                     }
 
-                    ngModelCtrl.$setViewValue(scope.timestamp);
+                    ngModelCtrl.$setViewValue(ngModelCtrl.$modelValue);
 
                 };
 
-                scope.addD = function ()
-                {
-                    scope.datepickerDate.setDate(10);
-                }
+                var updateModel = function (value) {
+                    $log.log('parse');
+                    return value;
+                };
 
-                scope.$watch(function () {
-                        return scope.timestamp;
-                    },
-                    function (value) {
+                ngModelCtrl.$parsers.push(updateModel);
 
 
-                        // TRICK: Drop model value if timestamp value changed
-                        ngModelCtrl.$modelValue = undefined;
+                var testFormatter = function (value) {
+                    $log.log('format');
+                    return value;
+                };
 
-                        if (value.isDate()) {
-                            // Change datepicker value with new date
-                            scope.datepickerDate = value.toDate();
+                ngModelCtrl.$formatters.push(testFormatter);
 
-                            // Datepicker value was updated outside directive
-                            // $watch for datepickerDate should not update timestamp in this loop
-                            itIsUserInput = false;
+                var updateView = function () {
 
-                            // Synchronise radio input value with timestamp value
-                            scope.valueToCompare = value.value;
-                        }
-                    },
-                    true
-                );
+                    //TODO change to viewValue or modelValue
+                    if (ngModelCtrl.$viewValue.instance.isDate()) {
+                        // Change datepicker value with new date
+                        scope.datepickerDate = ngModelCtrl.$viewValue.instance.toDate();
+
+                        // Datepicker value was updated outside directive
+                        // $watch for datepickerDate should not update timestamp in this loop
+                        itIsUserInput = false;
+
+                        // Synchronise radio input value with timestamp value
+                        scope.valueToCompare = ngModelCtrl.$viewValue.instance.value;
+                    }
+                };
 
                 ngModelCtrl.$render = function () {
-
+                    updateView();
                 };
 
                 scope.$watch('datepickerDate', function (value) {
@@ -225,6 +271,10 @@ angular.module('timestamp', [])
                     // If datepicker value was updated from datepicker
                     if (itIsUserInput) {
                         // Update timestamp
+
+
+                        //scope.timestamp.value = ????
+
                         scope.setViewValue(clearTime(value));
 
                     }
@@ -233,109 +283,9 @@ angular.module('timestamp', [])
                         itIsUserInput = true;
                     }
                 });
-
-                /*scope.$watch('timestamp.value', function (value) {
-
-                 // If the timestamp value is changed from the outside
-                 // and can be represents as date
-                 if (value !== Timestamp.UNSPECIFIED && value !== Timestamp.NEVER) {
-                 // Change datepicker value with new date
-                 scope.datepickerDate = scope.timestamp.toDate();
-
-                 // Datepicker value was updated outside directive
-                 // $watch for datepickerDate should not update timestamp in this loop
-                 itIsUserInput = false;
-
-                 // Synchronise radio input value with timestamp value
-                 scope.valueToCompare = value;
-                 }
-                 });*/
-
-                /*scope.$watch('datepickerDate', function (value) {
-
-                 // If datepicker value was updated from datepicker
-                 if (itIsUserInput) {
-                 // Update timestamp
-                 scope.updateTimestamp(clearTime(value));
-                 }
-                 else {
-                 // Stay watching
-                 itIsUserInput = true;
-                 }
-                 });*/
             }
         };
     }])
-
-    /*.directive('timestampInputO', ['Timestamp', '$log', function (Timestamp, $log) {
-
-        // Remove time part of JS Date object
-        var clearTime = function (date) {
-            date.setHours(0);
-            date.setMinutes(0);
-            date.setSeconds(0);
-            date.setMilliseconds(0);
-            return date;
-        };
-
-        return {
-            restrict: 'AE',
-            templateUrl: '../src/timestamp-input.tpl.html',
-            scope: {
-                timestamp: '=ngModel'
-            },
-            link: function (scope) {
-
-                // Represents 'Unspecified' timestamp value
-                scope.UNSPECIFIED = Timestamp.UNSPECIFIED;
-
-                // Represents 'Never' timestamp value
-                scope.NEVER = Timestamp.NEVER;
-
-                // Set default datepicker value
-                scope.datepickerDate = clearTime(new Date());
-
-                // Indicates what model was changed by user from datepicker
-                var itIsUserInput = false;
-
-                // Updates a timestamp value
-                scope.updateTimestamp = function (date) {
-
-                    scope.timestamp.setFromDate(date);
-                };
-
-                scope.$watch('timestamp.value', function (value) {
-
-                    // If the timestamp value is changed from the outside
-                    // and can be represents as date
-                    if (value !== Timestamp.UNSPECIFIED && value !== Timestamp.NEVER) {
-                        // Change datepicker value with new date
-                        scope.datepickerDate = scope.timestamp.toDate();
-
-                        // Datepicker value was updated outside directive
-                        // $watch for datepickerDate should not update timestamp in this loop
-                        itIsUserInput = false;
-
-                        // Synchronise radio input value with timestamp value
-                        scope.valueToCompare = value;
-                    }
-                });
-
-                scope.$watch('datepickerDate', function (value) {
-
-                    // If datepicker value was updated from datepicker
-                    if (itIsUserInput) {
-                        // Update timestamp
-                        scope.updateTimestamp(clearTime(value));
-                    }
-                    else {
-                        // Stay watching
-                        itIsUserInput = true;
-                    }
-                });
-            }
-        };
-    }])*/
 
     .directive('timestampMoreThen', ['$log',
         function ($log) {
@@ -347,16 +297,16 @@ angular.module('timestamp', [])
                     // If ng-model exist
                     if (ngModelCtrl) {
 
-                        scope.$watch(attrs.timestampMoreThen, function() {
+                        scope.$watch(attrs.timestampMoreThen, function () {
                             ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
                         });
 
                         // Observe the attribute value
                         /*attrs.$observe('timestampMoreThen',
-                            function (value) {
-                                validate(null, value);
-                            }
-                        );*/
+                         function (value) {
+                         validate(null, value);
+                         }
+                         );*/
 
                         var validate = function (viewValue, validationAttrValue) {
 
@@ -364,7 +314,7 @@ angular.module('timestamp', [])
 
                             var validationValue = validationAttrValue || attrs.timestampMoreThen;
 
-                            var result = timestamp.compareTo(validationValue) > 0;
+                            var result = timestamp.instance.compareTo(validationValue) > 0;
 
                             $log.log('validation - ' + result);
 
@@ -386,46 +336,46 @@ angular.module('timestamp', [])
     )
 
     /*.directive('timestampLessThen', ['$log',
-        function ($log) {
-            return {
-                require: '?ngModel',
-                restrict: 'A',
-                link: function (scope, element, attrs, ngModelCtrl) {
+     function ($log) {
+     return {
+     require: '?ngModel',
+     restrict: 'A',
+     link: function (scope, element, attrs, ngModelCtrl) {
 
-                    // If ng-model exist
-                    if (ngModelCtrl) {
-                        // Deep watch for ngModelCtrl.$modelValue change
-                        scope.$watch(
-                            function () {
-                                return ngModelCtrl.$modelValue;
-                            },
-                            function (value) {
-                                validate(value, null);
-                            },
-                            true
-                        );
+     // If ng-model exist
+     if (ngModelCtrl) {
+     // Deep watch for ngModelCtrl.$modelValue change
+     scope.$watch(
+     function () {
+     return ngModelCtrl.$modelValue;
+     },
+     function (value) {
+     validate(value, null);
+     },
+     true
+     );
 
-                        // Observe the attribute value
-                        attrs.$observe('timestampLessThen',
-                            function (value) {
-                                validate(null, value);
-                            }
-                        );
+     // Observe the attribute value
+     attrs.$observe('timestampLessThen',
+     function (value) {
+     validate(null, value);
+     }
+     );
 
-                        var validate = function (innerModel, validationAttrValue) {
+     var validate = function (innerModel, validationAttrValue) {
 
-                            var timestamp = innerModel || ngModelCtrl.$viewValue;
+     var timestamp = innerModel || ngModelCtrl.$viewValue;
 
-                            var validationValue = validationAttrValue || attrs.timestampLessThen;
+     var validationValue = validationAttrValue || attrs.timestampLessThen;
 
-                            // Set validity
-                            ngModelCtrl.$setValidity('timestampLessThen',
-                                timestamp.compareTo(validationValue) < 0);
-                        };
-                    }
-                }
-            };
-        }]
-    )*/;
+     // Set validity
+     ngModelCtrl.$setValidity('timestampLessThen',
+     timestamp.compareTo(validationValue) < 0);
+     };
+     }
+     }
+     };
+     }]
+     )*/;
 
 
