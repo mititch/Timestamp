@@ -146,6 +146,11 @@ angular.module('timestamp', [])
                 return this.value === Timestamp.NEVER;
             }
 
+            Timestamp.isDate = function(value) {
+                //return !this.isUnspecified() && !this.isNever();
+                return value !== Timestamp.NEVER && value !== Timestamp.UNSPECIFIED;
+            }
+
             // Returns true if the instance value can be represent as JS Date
             this.isDate = function () {
                 return !this.isUnspecified() && !this.isNever();
@@ -162,17 +167,16 @@ angular.module('timestamp', [])
                     : Number(value.slice(0, valueLength - 4));
             };
 
-            this.setter = null;
-            this.getter = function () {
-                if (!(this.setter && this.setter.value == this.value)) {
-                    $log.log('getter');
-                    this.setter = {
-                        value: this.value,
-                        instance: this
-                    };
+            this.setter = function(value) {
+                if (angular.isDate(value)) {
+                    this.setFromDate(value);
                 }
-                return this.setter;
-            }
+                else {
+                    this.value = value;
+                }
+
+                return this.value;
+            };
 
         };
 
@@ -197,7 +201,8 @@ angular.module('timestamp', [])
             restrict: 'AE',
             templateUrl: '../src/timestamp-input.tpl.html',
             scope: {
-                timestamp: '=ngModel' // new object
+                value: '=ngModel',
+                setter: "&"
             },
             link: function (scope, element, attrs, ngModelCtrl) {
 
@@ -216,18 +221,11 @@ angular.module('timestamp', [])
                 // Updates a timestamp value
                 scope.setViewValue = function (value) {
 
-                    if (angular.isDate(value)) {
+                    var newValue = scope.setter({value : value})
 
-                        ngModelCtrl.$viewValue.instance.setFromDate(value);
-                        scope.timestamp.value = ngModelCtrl.$viewValue.instance.value;
-                        scope.valueToCompare = ngModelCtrl.$viewValue.instance.value;
+                    ngModelCtrl.$setViewValue(newValue);
 
-                    }
-                    else {
-                        ngModelCtrl.$viewValue.instance.value = value;
-                    }
-
-                    ngModelCtrl.$setViewValue(ngModelCtrl.$modelValue);
+                    return newValue;
 
                 };
 
@@ -247,18 +245,19 @@ angular.module('timestamp', [])
                 ngModelCtrl.$formatters.push(testFormatter);
 
                 var updateView = function () {
+                    // INFO: make all inner model update here
 
                     //TODO change to viewValue or modelValue
-                    if (ngModelCtrl.$viewValue.instance.isDate()) {
+                    if (Timespan.isDate(ngModelCtrl.$viewValue)) {
                         // Change datepicker value with new date
-                        scope.datepickerDate = ngModelCtrl.$viewValue.instance.toDate();
+                        scope.datepickerDate = Timespan.toDate(ngModelCtrl.$viewValue);
 
                         // Datepicker value was updated outside directive
                         // $watch for datepickerDate should not update timestamp in this loop
                         itIsUserInput = false;
 
                         // Synchronise radio input value with timestamp value
-                        scope.valueToCompare = ngModelCtrl.$viewValue.instance.value;
+                        scope.valueToCompare = ngModelCtrl.$viewValue;
                     }
                 };
 
@@ -270,12 +269,9 @@ angular.module('timestamp', [])
 
                     // If datepicker value was updated from datepicker
                     if (itIsUserInput) {
+
                         // Update timestamp
-
-
-                        //scope.timestamp.value = ????
-
-                        scope.setViewValue(clearTime(value));
+                        scope.valueToCompare = scope.setViewValue(clearTime(value));
 
                     }
                     else {

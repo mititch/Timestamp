@@ -29,7 +29,7 @@ change: <input type="text" ng-model="ts.value"/></br>
 
     <p>Directive: </p>
 
-    <timestamp-input name="tscontroll" ng-model="ts.getter()" timestamp-more-then="{{validationValue}}"></timestamp-input>
+    <timestamp-input name="tscontroll" ng-model="ts.value" setter="ts.setter(value)" timestamp-more-then="{{validationValue}}"></timestamp-input>
 
     </br>
 
