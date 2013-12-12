@@ -2,14 +2,28 @@
  *  Declare app level module
  */
 angular.module('app', ['ui.bootstrap', 'timestamp'])
-    .controller('mainCtrl', ['$scope', '$log', 'Timestamp',
-        function ($scope, $log, Timestamp) {
+    .controller('mainCtrl', ['$scope', '$log', 'LargeInteger',
+        function ($scope, $log, LargeInteger) {
 
-            $scope.ts = new Timestamp({value: '1303097596260000'});
+            $scope.inputValue = '1303097596260000';
 
-            $scope.validationValue = Timestamp.UNSPECIFIED;
-            //$scope.validationValue = Timestamp.NEVER;
-            //$scope.validationValue = Timestamp.fromDate(new Date());
+
+                $scope.largeInt = new LargeInteger($scope.inputValue);
+
+
+            $scope.createLargeInteger = function () {
+                $scope.largeInt = new LargeInteger($scope.inputValue)
+            }
+
+            $scope.validationValue = LargeInteger.UNSPECIFIED;
+
+            $scope.updateValidator = function () {
+                $scope.validationValue = LargeInteger.NEVER;
+            }
+
+
+            //$scope.validationValue = LargeInteger.NEVER;
+            // ??? $scope.validationValue = new LargeInteger(new Date());
 
         }
     ]);

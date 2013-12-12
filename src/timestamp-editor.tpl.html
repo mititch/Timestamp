@@ -1,0 +1,18 @@
+<div class="radio">
+    <label>
+        <input type="radio" ng-model="radioButtonsValue" value="{{UNSPECIFIED}}" ng-change="setValue(UNSPECIFIED)"> Unspecified
+    </label>
+</div>
+<div class="radio">
+    <label>
+        <input type="radio" ng-model="radioButtonsValue" value="{{NEVER}}" ng-change="setValue(NEVER)"> Never
+    </label>
+</div>
+<div class="radio">
+    <label>
+        <input type="radio" ng-model="radioButtonsValue" value="{{valueToCompare}}"
+               ng-change="setValue(datepickerDate)"/>
+        <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"
+               close-text="Close" ng-disabled="radioButtonsValue != valueToCompare"/>
+    </label>
+</div>
