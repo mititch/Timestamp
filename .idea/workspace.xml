@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="980abd55-cff0-4e08-ac05-6b81d8e8fd8d" name="Default" comment="" />
+    <list default="true" id="980abd55-cff0-4e08-ac05-6b81d8e8fd8d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/app.js" afterPath="$PROJECT_DIR$/demo/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/index.html" afterPath="$PROJECT_DIR$/demo/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/timestamp-input.tpl.html" afterPath="$PROJECT_DIR$/src/timestamp-input.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/timestamp.js" afterPath="$PROJECT_DIR$/src/timestamp.js" />
+    </list>
     <ignored path="Timestamp.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,16 +31,7 @@
       <file leaf-file-name="timestamp.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/timestamp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="214" column="8" selection-start="7602" selection-end="7602" vertical-scroll-proportion="0.058419243" vertical-offset="3587" max-vertical-offset="6511">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ttt.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/ttt.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="119">
+            <state line="208" column="21" selection-start="7512" selection-end="7512" vertical-scroll-proportion="0.33451957" vertical-offset="3348" max-vertical-offset="6766">
               <folding />
             </state>
           </provider>
@@ -44,7 +40,7 @@
       <file leaf-file-name="timestamp-input.tpl.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="36" selection-start="609" selection-end="609" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="476">
+            <state line="21" column="0" selection-start="788" selection-end="788" vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="476">
               <folding />
             </state>
           </provider>
@@ -53,7 +49,7 @@
       <file leaf-file-name="timestampSpec.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="583" column="27" selection-start="19885" selection-end="19885" vertical-scroll-proportion="0.0" vertical-offset="9911" max-vertical-offset="11237">
+            <state line="655" column="0" selection-start="22897" selection-end="22897" vertical-scroll-proportion="0.0" vertical-offset="11135" max-vertical-offset="11237">
               <folding />
             </state>
           </provider>
@@ -62,7 +58,7 @@
       <file leaf-file-name="karma.conf.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/unit/karma.conf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="41" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1309">
+            <state line="61" column="0" selection-start="1885" selection-end="1885" vertical-scroll-proportion="0.0" vertical-offset="1037" max-vertical-offset="1309">
               <folding />
             </state>
           </provider>
@@ -98,7 +94,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="76" selection-start="978" selection-end="978" vertical-scroll-proportion="-20.26923" vertical-offset="0" max-vertical-offset="918">
+            <state line="31" column="63" selection-start="980" selection-end="980" vertical-scroll-proportion="-13.423077" vertical-offset="178" max-vertical-offset="918">
               <folding />
             </state>
           </provider>
@@ -107,7 +103,7 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="12" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+            <state line="7" column="12" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
               <folding />
             </state>
           </provider>
@@ -138,10 +134,10 @@
         <option value="$PROJECT_DIR$/src/timestamp.tpl.html" />
         <option value="$PROJECT_DIR$/test/unit/karma.conf.js" />
         <option value="$PROJECT_DIR$/test/unit/timestampSpec.js" />
-        <option value="$PROJECT_DIR$/demo/app.js" />
         <option value="$PROJECT_DIR$/demo/ttt.js" />
-        <option value="$PROJECT_DIR$/demo/index.html" />
+        <option value="$PROJECT_DIR$/demo/app.js" />
         <option value="$PROJECT_DIR$/src/timestamp-input.tpl.html" />
+        <option value="$PROJECT_DIR$/demo/index.html" />
         <option value="$PROJECT_DIR$/src/timestamp.js" />
       </list>
     </option>
@@ -152,8 +148,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -181,6 +177,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -293,7 +290,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -312,6 +308,14 @@
     </key>
   </component>
   <component name="RunManager" selected="Karma.karma.conf.js">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -322,23 +326,15 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -368,14 +364,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18713759" sideWeight="0.65628475" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18667643" sideWeight="0.65628475" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -404,9 +400,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18713759" sideWeight="0.65628475" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34371525" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34371525" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -423,6 +419,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/demo/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="7" selection-start="317" selection-end="317" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="272">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="5" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="306">
@@ -465,7 +468,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/unit/karma.conf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="41" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.0" vertical-offset="419" max-vertical-offset="1292">
+        <state line="61" column="0" selection-start="1885" selection-end="1885" vertical-scroll-proportion="0.0" vertical-offset="1037" max-vertical-offset="1309">
           <folding />
         </state>
       </provider>
@@ -493,42 +496,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="583" column="27" selection-start="19885" selection-end="19885" vertical-scroll-proportion="0.0" vertical-offset="8067" max-vertical-offset="9809">
+        <state line="655" column="0" selection-start="22897" selection-end="22897" vertical-scroll-proportion="0.0" vertical-offset="11135" max-vertical-offset="11237">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="12" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/ttt.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+        <state line="7" column="12" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="76" selection-start="978" selection-end="978" vertical-scroll-proportion="-20.26923" vertical-offset="0" max-vertical-offset="918">
+        <state line="31" column="63" selection-start="980" selection-end="980" vertical-scroll-proportion="-13.423077" vertical-offset="178" max-vertical-offset="918">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp-input.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="36" selection-start="609" selection-end="609" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="476">
+        <state line="21" column="0" selection-start="788" selection-end="788" vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="476">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="8" selection-start="7602" selection-end="7602" vertical-scroll-proportion="0.058419243" vertical-offset="3587" max-vertical-offset="6511">
+        <state line="208" column="21" selection-start="7512" selection-end="7512" vertical-scroll-proportion="0.33451957" vertical-offset="3348" max-vertical-offset="6766">
           <folding />
         </state>
       </provider>

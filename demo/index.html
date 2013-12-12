@@ -20,8 +20,8 @@
 
 ts.toDate = {{ts.toDate()}} </br>
 ts.toString = {{ts.toString()}}</br>
-ts.value = {{ts.value}} </br>
-change: <input type="text" ng-model="ts.value"/></br>
+ts.data.value = {{ts.data.value}} </br>
+change: <input type="text" ng-model="ts.data.value"/></br>
 
 </br>
 
@@ -29,7 +29,7 @@ change: <input type="text" ng-model="ts.value"/></br>
 
     <p>Directive: </p>
 
-    <timestamp-input name="tscontroll" ng-model="ts.value" setter="ts.setter(value)" timestamp-more-then="{{validationValue}}"></timestamp-input>
+    <timestamp-input name="tscontroll" ng-model="ts.connector" timestamp-more-then="{{validationValue}}"></timestamp-input>
 
     </br>
 

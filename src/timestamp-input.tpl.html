@@ -1,22 +1,22 @@
 <div class="radio">
     <label>
-        <input type="radio" ng-model="value" value="{{UNSPECIFIED}}" ng-change="setViewValue(UNSPECIFIED)"> Unspecified
+        <input type="radio" ng-model="token.data.value" value="{{UNSPECIFIED}}" ng-change="setValue(UNSPECIFIED)"> Unspecified
     </label>
 </div>
 <div class="radio">
     <label>
-        <input type="radio" ng-model="value" value="{{NEVER}}" ng-change="setViewValue(NEVER)"> Never
+        <input type="radio" ng-model="token.data.value" value="{{NEVER}}" ng-change="setValue(NEVER)"> Never
     </label>
 </div>
 <div class="radio">
     <label>
-        <input type="radio" ng-model="value" value="{{valueToCompare}}"
-               ng-change="setViewValue(datepickerDate)"/>
+        <input type="radio" ng-model="token.data.value" value="{{valueToCompare}}"
+               ng-change="setValue(datepickerDate)"/>
         <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"
-               close-text="Close" ng-disabled="timestamp.value != valueToCompare"/>
+               close-text="Close" ng-disabled="token.data.value != valueToCompare"/>
     </label>
 </div>
-valueToCompare - {{valueToCompare}}
-timestamp.value - {{timestamp.value}}
 
-datepickerDate - {{datepickerDate}}
+valueToCompare - {{valueToCompare}} </br>
+token.data.value - {{token.data.value}} </br>
+datepickerDate - {{datepickerDate}} </br>
