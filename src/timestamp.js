@@ -44,15 +44,14 @@ angular.module('timestamp', [])
 
     .factory('LargeInteger', ['$log', function ($log) {
 
-        // Maximum int64 value digest count
-        var MAX_INT64_LENGTH = 19;
-
         // Parts of NEVER
         var NEVER_HI_PART = 922337203685477;
         var NEVER_LOW_PART = 5807;
 
         // The difference between the Windows and Unix epoch in milliseconds
         var WINDOWS_TIME_EPOCH_SHIFT = 11644473600000;
+
+        var stringTester = new RegExp('^-?[0-9]{1,19}$');
 
         // Parses a string or Date value
         //      value : string|Date
@@ -62,51 +61,37 @@ angular.module('timestamp', [])
             {
                 if (value === LargeInteger.NEVER)
                 {
-                    return {hi: NEVER_HI_PART, low : NEVER_LOW_PART, negative: false};
+                    return {hi: NEVER_HI_PART, low : NEVER_LOW_PART};
                 }
                 else if (value === LargeInteger.UNSPECIFIED)
                 {
-                    return {hi: 0, low: 0, negative: false};
+                    return {hi: 0, low: 0};
                 }
                 else
                 {
-                    var negative = value.slice(0,1) === '-';
+                    // If string can be parsed
+                    if (stringTester.test(value)) {
 
-                    var unsignedValue = value.replace('-','');
-
-                    var valueLength = unsignedValue.length;
-
-                    if (valueLength <= MAX_INT64_LENGTH ) {
+                        // Return data object
+                        // Both parts is signed
                         return {
-                            hi : valueLength > 4
-                                ? parseInt(unsignedValue.slice(0, valueLength - 4))
-                                : 0,
-                            low : valueLength > 4
-                                ? parseInt(unsignedValue.slice(valueLength - 4, valueLength))
-                                : parseInt(unsignedValue),
-                            negative : negative
+                            hi : parseInt(value.substr(0, value.length - 4)) || 0,
+                            low : parseInt(value.slice(-5)) % 10000
                         };
                     }
                 }
             }
             else if (angular.isDate(value))
             {
-                var windowsTime = value.getTime() + WINDOWS_TIME_EPOCH_SHIFT;
                 return {
-                    hi : Math.abs(windowsTime),
-                    low : 0,
-                    negative : windowsTime < 0
+                    hi : value.getTime() + WINDOWS_TIME_EPOCH_SHIFT,
+                    low : 0
                 };
             }
                 // Can not parse value
                 // return undefined;
                 throw "LargeInteger: Can not parse value - " + value;
 
-        };
-
-        // Apply sign to value
-        var getSigned = function (value, isNegative) {
-            return isNegative ? -value : value;
         };
 
         var LargeInteger = function (value) {
@@ -119,25 +104,22 @@ angular.module('timestamp', [])
 
             var lowPart = parsedValue.low;
 
-            var negative = parsedValue.negative;
-
             // Value getter
             this.getValue = function () {
-                return {hi : hiPart, low : lowPart, negative : negative};
+                return {hi : hiPart, low : lowPart};
             };
 
             // Overrides object.toString()
             this.toString = function () {
 
-                var sign = negative ? '-' : '';
-
                 if (hiPart)
                 {
-                    return sign + hiPart.toString() + (lowPart + 10000).toString().slice(1,5);
+                    return hiPart.toString() +
+                        (Math.abs(lowPart) + 10000).toString().slice(1,5);
                 }
                 else
                 {
-                    return sign + lowPart.toString() ;
+                    return lowPart.toString() ;
                 }
             };
 
@@ -154,16 +136,16 @@ angular.module('timestamp', [])
                 var compared =  value instanceof LargeInteger ? value.getValue()
                     : parse(value);
 
-                return getSigned(hiPart, negative) == getSigned(compared.hi, compared.negative)
-                    ? getSigned(lowPart, negative) - getSigned(compared.low, compared.negative)
-                    : getSigned(hiPart, negative) - getSigned(compared.hi, compared.negative);
+                return hiPart == compared.hi
+                    ? lowPart - compared.low
+                    : hiPart - compared.hi;
             };
 
 
             // Converts an instance value to JS Date
             this.getAsDate = function () {
                 // Get in milliseconds, shift epoch and convert to JS Date
-                return new Date(getSigned(hiPart, negative) - WINDOWS_TIME_EPOCH_SHIFT);
+                return new Date(hiPart - WINDOWS_TIME_EPOCH_SHIFT);
             };
 
             // Returns true if the instance has Unspecified value
@@ -173,7 +155,7 @@ angular.module('timestamp', [])
 
             // Returns true if the instance has Never value
             this.isNever = function () {
-                return hiPart === NEVER_HI_PART && lowPart === NEVER_LOW_PART && !negative;
+                return hiPart === NEVER_HI_PART && lowPart === NEVER_LOW_PART;
             };
 
         };
