@@ -26,7 +26,7 @@
       <file leaf-file-name="timestamp.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/timestamp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="307" column="0" selection-start="11104" selection-end="11104" vertical-scroll-proportion="0.76632303" vertical-offset="4550" max-vertical-offset="7429">
+            <state line="212" column="73" selection-start="7764" selection-end="7771" vertical-scroll-proportion="-2.0731132" vertical-offset="5362" max-vertical-offset="7038">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="timestamp-editor.tpl.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="6" selection-start="702" selection-end="702" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="408">
+            <state line="22" column="26" selection-start="847" selection-end="847" vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="476">
               <folding />
             </state>
           </provider>
@@ -44,32 +44,32 @@
       <file leaf-file-name="timestampSpec.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="277" column="40" selection-start="10524" selection-end="10524" vertical-scroll-proportion="0.0" vertical-offset="4397" max-vertical-offset="14314">
+            <state line="642" column="0" selection-start="23972" selection-end="23972" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15011">
               <folding>
-                <marker date="1386867849895" expanded="true" signature="14558:14811" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="14592:14779" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="14856:15106" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="14893:15070" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="15155:15685" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="15196:15649" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="15310:15385" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="15500:15607" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="23904:24157" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="23938:24125" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="24202:24452" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="24239:24416" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="24501:25031" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="24542:24995" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="24656:24731" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="24846:24953" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="28263:28516" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="28297:28484" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="28561:28811" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="28598:28775" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="28860:29390" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="28901:29354" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="29015:29090" placeholder="..." />
-                <marker date="1386867849895" expanded="true" signature="29205:29312" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15223:15476" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15257:15444" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15521:15771" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15558:15735" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15820:16362" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15861:16326" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="15981:16056" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="16171:16284" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="25623:25876" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="25657:25844" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="25921:26171" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="25958:26135" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="26220:26762" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="26261:26726" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="26381:26456" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="26571:26684" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="29994:30247" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30028:30215" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30292:30542" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30329:30506" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30591:31133" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30632:31097" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30752:30827" placeholder="..." />
+                <marker date="1386941470663" expanded="true" signature="30942:31055" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -114,7 +114,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="1032" selection-end="1032" vertical-scroll-proportion="-14.923077" vertical-offset="71" max-vertical-offset="1003">
+            <state line="22" column="39" selection-start="826" selection-end="826" vertical-scroll-proportion="-11.653846" vertical-offset="71" max-vertical-offset="1003">
               <folding />
             </state>
           </provider>
@@ -157,8 +157,9 @@
         <option value="$PROJECT_DIR$/src/timestamp-input.tpl.html" />
         <option value="$PROJECT_DIR$/demo/app.js" />
         <option value="$PROJECT_DIR$/demo/index.html" />
-        <option value="$PROJECT_DIR$/test/unit/timestampSpec.js" />
+        <option value="$PROJECT_DIR$/src/timestamp-editor.tpl.html" />
         <option value="$PROJECT_DIR$/src/timestamp.js" />
+        <option value="$PROJECT_DIR$/test/unit/timestampSpec.js" />
       </list>
     </option>
   </component>
@@ -197,6 +198,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -244,6 +246,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="vendors" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timestamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timestamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendors" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angular" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -309,7 +329,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -328,6 +347,14 @@
     </key>
   </component>
   <component name="RunManager" selected="Karma.karma.conf.js">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -338,23 +365,15 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -385,13 +404,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18661043" sideWeight="0.65628475" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.107538216" sideWeight="0.65628475" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -416,17 +435,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="7" selection-start="317" selection-end="317" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="272">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="5" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="306">
@@ -467,6 +479,13 @@
         <state line="22" column="37" selection-start="498" selection-end="515" vertical-scroll-proportion="0.43896714" vertical-offset="0" max-vertical-offset="8806" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vendors/angular/angular.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="820" column="37" selection-start="20638" selection-end="20643" vertical-scroll-proportion="0.33293414" vertical-offset="13662" max-vertical-offset="340612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/unit/karma.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="61" column="0" selection-start="1885" selection-end="1885" vertical-scroll-proportion="0.0" vertical-offset="1037" max-vertical-offset="1309">
@@ -495,13 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="1032" selection-end="1032" vertical-scroll-proportion="-14.923077" vertical-offset="71" max-vertical-offset="1003">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="18" selection-start="601" selection-end="601" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
@@ -509,48 +521,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
+    <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="277" column="40" selection-start="10524" selection-end="10524" vertical-scroll-proportion="0.0" vertical-offset="4397" max-vertical-offset="14314">
-          <folding>
-            <marker date="1386867849895" expanded="true" signature="14558:14811" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="14592:14779" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="14856:15106" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="14893:15070" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="15155:15685" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="15196:15649" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="15310:15385" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="15500:15607" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="23904:24157" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="23938:24125" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="24202:24452" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="24239:24416" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="24501:25031" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="24542:24995" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="24656:24731" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="24846:24953" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="28263:28516" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="28297:28484" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="28561:28811" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="28598:28775" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="28860:29390" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="28901:29354" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="29015:29090" placeholder="..." />
-            <marker date="1386867849895" expanded="true" signature="29205:29312" placeholder="..." />
-          </folding>
+        <state line="22" column="26" selection-start="847" selection-end="847" vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="476">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
+    <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="6" selection-start="702" selection-end="702" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="408">
+        <state line="22" column="39" selection-start="826" selection-end="826" vertical-scroll-proportion="-11.653846" vertical-offset="71" max-vertical-offset="1003">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="642" column="0" selection-start="23972" selection-end="23972" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15011">
+          <folding>
+            <marker date="1386941470663" expanded="true" signature="15223:15476" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="15257:15444" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="15521:15771" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="15558:15735" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="15820:16362" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="15861:16326" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="15981:16056" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="16171:16284" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="25623:25876" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="25657:25844" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="25921:26171" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="25958:26135" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="26220:26762" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="26261:26726" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="26381:26456" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="26571:26684" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="29994:30247" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30028:30215" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30292:30542" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30329:30506" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30591:31133" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30632:31097" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30752:30827" placeholder="..." />
+            <marker date="1386941470663" expanded="true" signature="30942:31055" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="307" column="0" selection-start="11104" selection-end="11104" vertical-scroll-proportion="0.76632303" vertical-offset="4550" max-vertical-offset="7429">
+        <state line="212" column="73" selection-start="7764" selection-end="7771" vertical-scroll-proportion="-2.0731132" vertical-offset="5362" max-vertical-offset="7038">
           <folding />
         </state>
       </provider>

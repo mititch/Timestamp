@@ -10,9 +10,14 @@
 </div>
 <div class="radio">
     <label>
-        <input type="radio" ng-model="radioButtonsValue" value="{{valueToCompare}}"
+        <input type="radio" ng-model="radioButtonsValue" value="{{dateRadioButtonValue}}"
                ng-change="setValue(datepickerDate)"/>
         <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"
-               close-text="Close" ng-disabled="radioButtonsValue != valueToCompare"/>
+               close-text="Close" ng-disabled="radioButtonsValue != dateRadioButtonValue"/>
     </label>
 </div>
+
+
+radioButtonsValue - {{radioButtonsValue}}  </br>
+dateRadioButtonValue - {{dateRadioButtonValue}}  </br>
+datepickerDate - {{datepickerDate}}  </br>

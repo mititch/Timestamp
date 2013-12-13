@@ -71,12 +71,11 @@ describe('timestamp module', function () {
 
                     largeInteger = new LargeInteger('0');
 
-                    expect(largeInteger.getValue()).toBe(0);
+                    expect(largeInteger.getValue().low).toBe(0);
+                    expect(largeInteger.getValue().hi).toBe(0);
                     expect(largeInteger.toString()).toBe('0');
                     expect(largeInteger.isUnspecified()).toBe(true);
                     expect(largeInteger.isNever()).toBe(false);
-                    expect(largeInteger.isDate()).toBe(false);
-                    expect(typeof largeInteger.getAsDate()).toBe('undefined');
 
                 });
 
@@ -88,12 +87,12 @@ describe('timestamp module', function () {
 
                     largeInteger = new LargeInteger('9223372036854775807');
 
-                    expect(largeInteger.getValue()).toBe('9223372036854775807');
+                    expect(largeInteger.getValue().hi).toBe(922337203685477);
+                    expect(largeInteger.getValue().low).toBe(5807);
                     expect(largeInteger.toString()).toBe('9223372036854775807');
                     expect(largeInteger.isUnspecified()).toBe(false);
                     expect(largeInteger.isNever()).toBe(true);
-                    expect(largeInteger.isDate()).toBe(false);
-                    expect(typeof largeInteger.getAsDate()).toBe('undefined');
+
 
                 });
 
@@ -103,14 +102,14 @@ describe('timestamp module', function () {
 
                 it('should has valid value', function () {
 
-                    largeInteger = new LargeInteger('100000000000000000');
+                    largeInteger = new LargeInteger('100000000033300321');
 
-                    expect(largeInteger.getValue()).toBe(100000000000000000);
-                    expect(largeInteger.toString()).toBe('100000000000000000');
+                    expect(largeInteger.getValue().hi).toBe(10000000003330);
+                    expect(largeInteger.getValue().low).toBe(321);
+                    expect(largeInteger.toString()).toBe('100000000033300321');
                     expect(largeInteger.isUnspecified()).toBe(false);
                     expect(largeInteger.isNever()).toBe(false);
-                    expect(largeInteger.isDate()).toBe(true);
-                    expect(typeof largeInteger.getAsDate()).not.toBe('undefined');
+                    expect(angular.isDate(largeInteger.getAsDate())).toBe(true);
 
                 });
 
@@ -127,7 +126,8 @@ describe('timestamp module', function () {
                     ftMap = WINDOWS_FILE_TIME_ARRAY[0];
                     largeInteger = new LargeInteger(ftMap.ft);
 
-                    expect(largeInteger.isDate()).toBe(true);
+                    expect(largeInteger.isUnspecified()).toBe(false);
+                    expect(largeInteger.isNever()).toBe(false);
                     expect(largeInteger.getAsDate().getFullYear()).toBe(ftMap.year);
                     expect(largeInteger.getAsDate().getMonth()).toBe(ftMap.month);
                     expect(largeInteger.getAsDate().getDate()).toBe(ftMap.day);
@@ -149,7 +149,6 @@ describe('timestamp module', function () {
                     ftMap = WINDOWS_FILE_TIME_ARRAY[1];
                     largeInteger = new LargeInteger(ftMap.ft);
 
-                    expect(largeInteger.isDate()).toBe(true);
                     expect(largeInteger.getAsDate().getFullYear()).toBe(ftMap.year);
                     expect(largeInteger.getAsDate().getMonth()).toBe(ftMap.month);
                     expect(largeInteger.getAsDate().getDate()).toBe(ftMap.day);
@@ -171,7 +170,6 @@ describe('timestamp module', function () {
                     ftMap = WINDOWS_FILE_TIME_ARRAY[2];
                     largeInteger = new LargeInteger(ftMap.ft);
 
-                    expect(largeInteger.isDate()).toBe(true);
                     expect(largeInteger.getAsDate().getFullYear()).toBe(ftMap.year);
                     expect(largeInteger.getAsDate().getMonth()).toBe(ftMap.month);
                     expect(largeInteger.getAsDate().getDate()).toBe(ftMap.day);
@@ -198,8 +196,7 @@ describe('timestamp module', function () {
                     largeInteger = new LargeInteger(new Date(ftMap.year, ftMap.month, ftMap.day,
                         ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
 
-                    expect(largeInteger.isDate()).toBe(true);
-                    expect(largeInteger.getValue().toString()).toBe(ftMap.ft);
+                    expect(largeInteger.toString()).toBe(ftMap.ft);
                 });
 
             });
@@ -212,8 +209,7 @@ describe('timestamp module', function () {
                     largeInteger = new LargeInteger(new Date(ftMap.year, ftMap.month, ftMap.day,
                         ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
 
-                    expect(largeInteger.isDate()).toBe(true);
-                    expect(largeInteger.getValue().toString()).toBe(ftMap.ft);
+                    expect(largeInteger.toString()).toBe(ftMap.ft);
                 });
 
             });
@@ -226,8 +222,7 @@ describe('timestamp module', function () {
                     largeInteger = new LargeInteger(new Date(ftMap.year, ftMap.month, ftMap.day,
                         ftMap.hour, ftMap.minute, ftMap.second, ftMap.millisecond));
 
-                    expect(largeInteger.isDate()).toBe(true);
-                    expect(largeInteger.getValue().toString()).toBe(ftMap.ft);
+                    expect(largeInteger.toString()).toBe(ftMap.ft);
                 });
 
             });
@@ -237,38 +232,35 @@ describe('timestamp module', function () {
 
         describe('compareTo', function () {
 
-            describe ('on instance with number value' , function () {
+            describe ('on instance with value' , function () {
 
                 it('should return positive value if instance more then', function () {
-                    var instance = new LargeInteger(100000000);
+                    var instance = new LargeInteger('100000000');
 
-                    expect(instance.compareTo(100) > 0).toBe(true);
                     expect(instance.compareTo('100') > 0).toBe(true);
                     expect(instance.compareTo(LargeInteger.UNSPECIFIED) > 0).toBe(true);
-                    expect(instance.compareTo(new LargeInteger(100)) > 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('100')) > 0).toBe(true);
 
                 });
 
                 it('should return negative value if instance less then', function () {
-                    var instance = new LargeInteger(100000000);
+                    var instance = new LargeInteger('100000000');
 
-                    expect(instance.compareTo(200000000) < 0).toBe(true);
                     expect(instance.compareTo('200000000') < 0).toBe(true);
                     expect(instance.compareTo(LargeInteger.NEVER) < 0).toBe(true);
-                    expect(instance.compareTo(new LargeInteger(200000000)) < 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('200000000')) < 0).toBe(true);
                 });
 
                 it('should return zero value on equals', function () {
-                    var instance = new LargeInteger(100000000);
+                    var instance = new LargeInteger('100000000');
 
-                    expect(instance.compareTo(100000000) == 0).toBe(true);
                     expect(instance.compareTo('100000000') == 0).toBe(true);
                     expect(instance.compareTo(LargeInteger.UNSPECIFIED) == 0).toBe(false);
-                    expect(instance.compareTo(new LargeInteger(100000000)) == 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('100000000')) == 0).toBe(true);
                 });
             });
 
-            describe ('on instance with string value' , function () {
+            describe ('on instance with large value' , function () {
 
                 var stringValue,
                     biggestStringValue,
@@ -283,13 +275,11 @@ describe('timestamp module', function () {
                 });
 
                 it('should return positive value if instance more then', function () {
-                    expect(angular.isString(instance.getValue())).toBe(true);
 
-                    expect(instance.compareTo(100) > 0).toBe(true);
                     expect(instance.compareTo('100') > 0).toBe(true);
                     expect(instance.compareTo(lowStringValue) > 0).toBe(true);
                     expect(instance.compareTo(LargeInteger.UNSPECIFIED) > 0).toBe(true);
-                    expect(instance.compareTo(new LargeInteger(100)) > 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('100')) > 0).toBe(true);
 
                 });
 
@@ -306,6 +296,36 @@ describe('timestamp module', function () {
                     expect(instance.compareTo(new LargeInteger(stringValue)) == 0).toBe(true);
                 });
             });
+
+            describe ('on instance with negative value' , function () {
+
+                it('should return positive value if instance more then', function () {
+                    var instance = new LargeInteger('-100000000');
+
+                    expect(instance.compareTo('-200000000') > 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('-200000000')) > 0).toBe(true);
+
+                });
+
+                it('should return negative value if instance less then', function () {
+                    var instance = new LargeInteger('-100000000');
+
+                    expect(instance.compareTo('-100') < 0).toBe(true);
+                    expect(instance.compareTo('100') < 0).toBe(true);
+                    expect(instance.compareTo(LargeInteger.NEVER) < 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('-100')) < 0).toBe(true);
+                    expect(instance.compareTo(new LargeInteger('100')) < 0).toBe(true);
+                });
+
+                it('should return zero value on equals', function () {
+                    var instance = new LargeInteger('-100000000');
+
+                    expect(instance.compareTo('-100000000') == 0).toBe(true);
+                    expect(instance.compareTo(LargeInteger.UNSPECIFIED) == 0).toBe(false);
+                    expect(instance.compareTo(new LargeInteger('-100000000')) == 0).toBe(true);
+                });
+            });
+
         });
     });
 
@@ -368,7 +388,7 @@ describe('timestamp module', function () {
                     $provide.value('LargeInteger', LargeInteger);*/
 
                     LargeInteger = function(value) {
-                        this.getValue = function () {
+                        this.toString = function () {
                             return value;
                         };
                     }
@@ -403,10 +423,10 @@ describe('timestamp module', function () {
                             </div>\
                             <div class="radio">\
                                 <label>\
-                                    <input type="radio" ng-model="radioButtonsValue" value="{{valueToCompare}}"\
+                                    <input type="radio" ng-model="radioButtonsValue" value="{{dateRadioButtonValue}}"\
                                     ng-change="setValue(datepickerDate)"/>\
                                     <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"\
-                                    close-text="Close" ng-disabled="radioButtonsValue != valueToCompare"/>\
+                                    close-text="Close" ng-disabled="radioButtonsValue != dateRadioButtonValue"/>\
                                 </label>\
                             </div>'
                     );
@@ -432,7 +452,10 @@ describe('timestamp module', function () {
 
                     $rootScope.largeInteger = {
 
-                        isDate: function () {
+                        isUnspecified: function () {
+                            return true;
+                        },
+                        isNever: function () {
                             return false;
                         },
                         getAsDate: function () {
@@ -451,26 +474,30 @@ describe('timestamp module', function () {
 
                         var newLargeInteger = {
 
-                            isDate: function () {
+                            isUnspecified: function () {
+                            },
+                            isNever: function () {
                             },
                             getAsDate: function () {
                             },
-                            getValue: function () {
+                            toString: function () {
                             }
 
                         };
 
-                        spyOn(newLargeInteger, 'isDate').andReturn(true);
+                        spyOn(newLargeInteger, 'isUnspecified').andReturn(false);
+                        spyOn(newLargeInteger, 'isNever').andReturn(false);
                         spyOn(newLargeInteger, 'getAsDate').andReturn('fakeDate');
-                        spyOn(newLargeInteger, 'getValue').andReturn('fakeValue');
+                        spyOn(newLargeInteger, 'toString').andReturn('fakeValue');
 
                         $rootScope.largeInteger = newLargeInteger;
                         $rootScope.$apply();
 
-                        expect(newLargeInteger.isDate).toHaveBeenCalled();
+                        expect(newLargeInteger.isUnspecified).toHaveBeenCalled();
+                        expect(newLargeInteger.isNever).toHaveBeenCalled();
                         expect(newLargeInteger.getAsDate).toHaveBeenCalled();
-                        expect(newLargeInteger.getValue).toHaveBeenCalled();
-                        expect(element.isolateScope().valueToCompare).toBe('fakeValue');
+                        expect(newLargeInteger.toString).toHaveBeenCalled();
+                        expect(element.isolateScope().dateRadioButtonValue).toBe('fakeValue');
                         expect(element.isolateScope().radioButtonsValue).toBe('fakeValue');
                         expect(element.isolateScope().datepickerDate).toBe('fakeDate');
 
@@ -487,26 +514,30 @@ describe('timestamp module', function () {
 
                         var newLargeInteger = {
 
-                            isDate: function () {
+                            isUnspecified: function () {
+                            },
+                            isNever: function () {
                             },
                             getAsDate: function () {
                             },
-                            getValue: function () {
+                            toString: function () {
                             }
 
                         };
 
-                        spyOn(newLargeInteger, 'isDate').andReturn(false);
+                        spyOn(newLargeInteger, 'isUnspecified').andReturn(false);
+                        spyOn(newLargeInteger, 'isNever').andReturn(true);
                         spyOn(newLargeInteger, 'getAsDate').andReturn('fakeDate');
-                        spyOn(newLargeInteger, 'getValue').andReturn('fakeValue');
+                        spyOn(newLargeInteger, 'toString').andReturn('fakeValue');
 
                         $rootScope.largeInteger = newLargeInteger;
                         $rootScope.$apply();
 
-                        expect(newLargeInteger.isDate).toHaveBeenCalled();
+                        expect(newLargeInteger.isUnspecified).toHaveBeenCalled();
+                        expect(newLargeInteger.isNever).toHaveBeenCalled();
                         expect(newLargeInteger.getAsDate).not.toHaveBeenCalled();
-                        expect(newLargeInteger.getValue).toHaveBeenCalled();
-                        expect(element.isolateScope().valueToCompare).not.toBe('fakeValue');
+                        expect(newLargeInteger.toString).toHaveBeenCalled();
+                        expect(element.isolateScope().dateRadioButtonValue).not.toBe('fakeValue');
                         expect(element.isolateScope().radioButtonsValue).toBe('fakeValue');
                         expect(element.isolateScope().datepickerDate).not.toBe('fakeDate');
 
@@ -526,12 +557,15 @@ describe('timestamp module', function () {
 
                     $rootScope.largeInteger = {
 
-                        isDate: function () {
+                        isUnspecified: function () {
+                            return true;
+                        },
+                        isNever: function () {
                             return false;
                         },
                         getAsDate: function () {
                         },
-                        getValue: function () {
+                        toString: function () {
                         }
                     }
 
@@ -579,12 +613,15 @@ describe('timestamp module', function () {
 
                     $rootScope.largeInteger = {
 
-                        isDate: function () {
+                        isUnspecified: function () {
+                            return true;
+                        },
+                        isNever: function () {
                             return false;
                         },
                         getAsDate: function () {
                         },
-                        getValue: function () {
+                        toString: function () {
                         }
                     }
 
@@ -595,8 +632,12 @@ describe('timestamp module', function () {
                     it("should update outer variable", function () {
                         element = createDirective();
 
-                        LargeInteger.prototype.isDate = function () {
-                            return true;
+                        LargeInteger.prototype.isUnspecified = function () {
+                            return false;
+                        }
+
+                        LargeInteger.prototype.isNever = function () {
+                            return false;
                         }
 
 
@@ -604,8 +645,8 @@ describe('timestamp module', function () {
                         $rootScope.$apply();
 
                         expect(element.isolateScope().radioButtonsValue).toBe('someNewValue');
-                        expect(element.isolateScope().valueToCompare).toBe('someNewValue');
-                        expect($rootScope.largeInteger.getValue()).toBe('someNewValue');
+                        expect(element.isolateScope().dateRadioButtonValue).toBe('someNewValue');
+                        expect($rootScope.largeInteger.toString()).toBe('someNewValue');
                     });
 
                 });
@@ -659,10 +700,10 @@ describe('timestamp module', function () {
                             </div>\
                             <div class="radio">\
                                 <label>\
-                                    <input type="radio" ng-model="radioButtonsValue" value="{{valueToCompare}}"\
+                                    <input type="radio" ng-model="radioButtonsValue" value="{{dateRadioButtonValue}}"\
                                     ng-change="setValue(datepickerDate)"/>\
                                     <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"\
-                                    close-text="Close" ng-disabled="radioButtonsValue != valueToCompare"/>\
+                                    close-text="Close" ng-disabled="radioButtonsValue != dateRadioButtonValue"/>\
                                 </label>\
                             </div>'
                 );
@@ -768,10 +809,10 @@ describe('timestamp module', function () {
                             </div>\
                             <div class="radio">\
                                 <label>\
-                                    <input type="radio" ng-model="radioButtonsValue" value="{{valueToCompare}}"\
+                                    <input type="radio" ng-model="radioButtonsValue" value="{{dateRadioButtonValue}}"\
                                     ng-change="setValue(datepickerDate)"/>\
                                     <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="datepickerDate"\
-                                    close-text="Close" ng-disabled="radioButtonsValue != valueToCompare"/>\
+                                    close-text="Close" ng-disabled="radioButtonsValue != dateRadioButtonValue"/>\
                                 </label>\
                             </div>'
                 );

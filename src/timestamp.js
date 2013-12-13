@@ -10,7 +10,7 @@
  *      Methods:
  *          getValue() - returns value
  *          compareTo(valueToCompere) - compares as instance value with valueToCompare
- *              valueToCompere : string|number
+ *              valueToCompere : string|number|LargeInteger
  *          getAsDate() - returns instance value as JS Date
  *          isUnspecified() - returns true if the instance has Unspecified value
  *          isNever() - returns true if the instance has Never value
@@ -24,17 +24,17 @@
  *   The 'timestamp-more-then' directive can be used to validate 'timestamp-editor' minimal value.
  *   Input is considered valid if value more then specified in attribute
  *      Usage: <timestamp-input ng-model="largeInteger" timestamp-more-then="minValue">
- *          minValue : string|number
+ *          minValue : string|number|LargeInteger
  *      LargeInteger class can be used to represent Unspecified value (LargeInteger.UNSPECIFIED)
- *      or get value from specified date ( new LargeInteger(date).getValue() -
+ *      or get value from specified date ( new LargeInteger(date) -
  *      where date is JS Date object).
  *
  *   The 'timestamp-less-then' directive can be used to validate 'timestamp-editor' maximum value.
  *   Input is considered valid if value less then specified in attribute
  *      Usage: <timestamp-input ng-model="largeInteger" timestamp-less-then="maxValue">
- *          maxValue : string|number
+ *          maxValue : string|number|LargeInteger
  *      LargeInteger class can be used to represent Never value (LargeInteger.NEVER)
- *      or get value from specified date (new LargeInteger(date).getValue() -
+ *      or get value from specified date (new LargeInteger(date) -
  *      where date is JS Date object).
  *
  *
@@ -48,173 +48,145 @@ angular.module('timestamp', [])
 
     .factory('LargeInteger', ['$log', function ($log) {
 
-        var LargeInteger = function (value) {
+        // Maximum int64 value digest count
+        var MAX_INT64_LENGTH = 19;
 
-            // Represents Unspecified value
-            LargeInteger.UNSPECIFIED = 0;
+        // Parts of NEVER
+        var NEVER_HI_PART = 922337203685477;
+        var NEVER_LOW_PART = 5807;
 
-            // Represents Never value
-            LargeInteger.NEVER = '9223372036854775807';
+        // The difference between the Windows and Unix epoch in milliseconds
+        var WINDOWS_TIME_EPOCH_SHIFT = 11644473600000;
 
-            // Maximum number value in JS
-            var MAX_JS_NUMBER = 9223372036854770000;
+        // Parses a string or Date value
+        //      value : string|Date
+        var parse = function (value) {
 
-            // Valid string value length
-            var MAX_VALUE_LENGTH = LargeInteger.NEVER.length;
-
-            // The difference between the Windows and Unix epoch in milliseconds
-            var WINDOWS_TIME_EPOCH_SHIFT = 11644473600000;
-
-            // Value parser
-            var parse = function (value) {
-
-                var result;
-
-                if (angular.isString(value))
+            if (angular.isString(value))
+            {
+                if (value === LargeInteger.NEVER)
                 {
-                    if (value.length > MAX_VALUE_LENGTH) {
-                        // Value can not be represent as LargeInteger
-                        return;
+                    return {hi: NEVER_HI_PART, low : NEVER_LOW_PART, negative: false};
+                }
+                else if (value === LargeInteger.UNSPECIFIED)
+                {
+                    return {hi: 0, low: 0, negative: false};
+                }
+                else
+                {
+                    var negative = value.slice(0,1) === '-';
+
+                    var unsignedValue = value.replace('-','');
+
+                    var valueLength = unsignedValue.length;
+
+                    if (valueLength <= MAX_INT64_LENGTH ) {
+                        return {
+                            hi : valueLength > 4
+                                ? parseInt(unsignedValue.slice(0, valueLength - 4))
+                                : 0,
+                            low : valueLength > 4
+                                ? parseInt(unsignedValue.slice(valueLength - 4, valueLength))
+                                : parseInt(unsignedValue),
+                            negative : negative
+                        };
                     }
-
-                    // Try save value as number
-                    result = Number(value);
-
-                    // If value more then max JS number save it as string
-                    if (!(result <= MAX_JS_NUMBER)) {
-                        result = value;
-                    }
-
                 }
-                else if (angular.isNumber(value)) {
-                    result = value;
-                }
-                else if (angular.isDate(value)) {
-                    // Get date in milliseconds add epoch shift an convert to 100 nanoseconds
-                    result = (value.getTime() + WINDOWS_TIME_EPOCH_SHIFT) * 10000;
-                }
+            }
+            else if (angular.isDate(value))
+            {
+                var windowsTime = value.getTime() + WINDOWS_TIME_EPOCH_SHIFT;
+                return {
+                    hi : Math.abs(windowsTime),
+                    low : 0,
+                    negative : windowsTime < 0
+                };
+            }
+                // Can not parse value
+                // return undefined;
+                throw "LargeInteger: Can not parse value - " + value;
 
-                return result;
-            };
+        };
+
+        // Apply sign to value
+        var getSigned = function (value, isNegative) {
+            return isNegative ? -value : value;
+        }
+
+        var LargeInteger = function (value) {
 
             // Instance initialization
 
-            var numberValue;        // Contains value is it can be parsed as number
-            var stringValue;        // Contains value is it can not be parsed as number
-
             var parsedValue = parse(value);
 
-            angular.isNumber(parsedValue) ? numberValue = parsedValue : stringValue = parsedValue;
+            var hiPart = parsedValue.hi;
+
+            var lowPart = parsedValue.low;
+
+            var negative = parsedValue.negative;
 
             // Value getter
             this.getValue = function () {
-                return stringValue || numberValue;
-            };
-
-            // Customizes JSON stringification behavior
-            this.toJSON = function () {
-                return stringValue ? stringValue : numberValue.toString();
+                return {hi : hiPart, low : lowPart, negative : negative};
             };
 
             // Overrides object.toString()
             this.toString = function () {
-                return this.getValue().toString();
+
+                var sign = negative ? '-' : '';
+
+                if (hiPart)
+                {
+                    return sign + hiPart.toString() + (lowPart + 10000).toString().slice(1,5);
+                }
+                else
+                {
+                    return sign + lowPart.toString() ;
+                }
+            };
+
+            // Customizes JSON stringification behavior
+            this.toJSON = function () {
+                return this.toString();
             };
 
             // Compares an instance value with specified value
-            this.compareToOLD = function (valueToCompare) {
-
-                if (angular.isNumber(valueToCompare))
-                {
-                    // Any string value is more then any number
-                    return stringValue ? 1 : numberValue - valueToCompare;
-                }
-                else if (angular.isString(valueToCompare))
-                {
-
-                    if (stringValue == valueToCompare) {
-                        // Strings equals
-                        return 0;
-                    }
-                    else if (valueToCompare.length != MAX_VALUE_LENGTH) {
-                        // valueToCompare has invalid length
-                        return undefined;
-                    }
-                    else {
-                        // Compare strings
-                        return stringValue > valueToCompare ? 1 : -1
-                    }
-
-                }
-                else if (valueToCompare instanceof LargeInteger)
-                {
-                    return this.compareTo(valueToCompare.getValue());
-                }
-
-                return undefined;
-
-            };
-
-            // Compares an instance value with specified value
+            //      value : string|Date|LargeInteger
             this.compareTo = function (value) {
 
                 // Get value to compare from instance or parse
-                var valueToCompare =  value instanceof LargeInteger ? value.getValue()
+                var compared =  value instanceof LargeInteger ? value.getValue()
                     : parse(value);
 
-                if (angular.isNumber(valueToCompare))
-                {
-                    // Any string value is more then any number
-                    return stringValue ? 1 : numberValue - valueToCompare;
-                }
-                else if (angular.isString(valueToCompare))
-                {
-                    // String value
-                    if (stringValue == valueToCompare)
-                    {
-                        // Strings equals
-                        return 0;
-                    }
-                    else
-                    {
-                        // Compare strings
-                        return stringValue > valueToCompare ? 1 : -1
-                    }
-                }
-
-                // valueToCompare is invalid;
-                return undefined;
+                return getSigned(hiPart, negative) == getSigned(compared.hi, compared.negative)
+                    ? getSigned(lowPart, negative) - getSigned(compared.low, compared.negative)
+                    : getSigned(hiPart, negative) - getSigned(compared.hi, compared.negative);
             };
 
 
             // Converts an instance value to JS Date
             this.getAsDate = function () {
-
-                // If value can not be converted - return 'undefined'
-                if (!this.isDate()) {
-                    return undefined;
-                }
                 // Get in milliseconds, shift epoch and convert to JS Date
-                return new Date(numberValue / 10000 - WINDOWS_TIME_EPOCH_SHIFT);
-
+                return new Date(getSigned(hiPart, negative) - WINDOWS_TIME_EPOCH_SHIFT);
             };
 
             // Returns true if the instance has Unspecified value
             this.isUnspecified = function () {
-                return !stringValue && numberValue === LargeInteger.UNSPECIFIED;
+                return hiPart === 0 && lowPart === 0
             }
 
             // Returns true if the instance has Never value
             this.isNever = function () {
-                return stringValue && stringValue === LargeInteger.NEVER || false;
-            }
-
-            // Returns true if the instance value can be represent as JS Date
-            this.isDate = function () {
-                return numberValue && !this.isUnspecified() || false;
+                return hiPart === NEVER_HI_PART && lowPart === NEVER_LOW_PART && !negative;
             }
 
         };
+
+        // Represents Unspecified value
+        LargeInteger.UNSPECIFIED = '0';
+
+        // Represents Never value
+        LargeInteger.NEVER = '' + NEVER_HI_PART + NEVER_LOW_PART;
 
         // Return constructor function
         return LargeInteger;
@@ -234,6 +206,11 @@ angular.module('timestamp', [])
             date.setSeconds(0);
             date.setMilliseconds(0);
             return date;
+        };
+
+        // Returns true if the LargeInteger instance value can be represent as JS Date
+        var canBeDate = function (largeInteger) {
+            return !largeInteger.isUnspecified() && !largeInteger.isNever();
         };
 
         return {
@@ -261,11 +238,11 @@ angular.module('timestamp', [])
                     // Create new instance
                     var newModel = new LargeInteger(value);
 
-                    if (newModel.isDate())
+                    if (canBeDate(newModel))
                     {
                         // Update date section
-                        scope.valueToCompare = newModel.getValue();
-                        scope.radioButtonsValue = newModel.getValue();
+                        scope.dateRadioButtonValue = newModel.toString();
+                        scope.radioButtonsValue = newModel.toString();
                     }
 
                     ngModelCtrl.$setViewValue(newModel);
@@ -275,9 +252,9 @@ angular.module('timestamp', [])
                 ngModelCtrl.$render = function () {
 
                     //Cache new value
-                    var newValue = ngModelCtrl.$viewValue.getValue();
+                    var newValue = ngModelCtrl.$viewValue.toString();
 
-                    if (ngModelCtrl.$viewValue.isDate())
+                    if (canBeDate(ngModelCtrl.$viewValue))
                     {
                         // Change datepicker value with new date
                         scope.datepickerDate = ngModelCtrl.$viewValue.getAsDate();
@@ -287,7 +264,7 @@ angular.module('timestamp', [])
                         itIsUserInput = false;
 
                         // Synchronise radio input value with new value
-                        scope.valueToCompare = newValue;
+                        scope.dateRadioButtonValue = newValue;
 
                     }
                     // Update radio buttons
