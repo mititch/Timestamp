@@ -26,7 +26,7 @@
       <file leaf-file-name="timestamp.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/timestamp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="212" column="73" selection-start="7764" selection-end="7771" vertical-scroll-proportion="-2.0731132" vertical-offset="5362" max-vertical-offset="7038">
+            <state line="86" column="47" selection-start="3733" selection-end="3733" vertical-scroll-proportion="0.4587264" vertical-offset="1073" max-vertical-offset="6970">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="timestamp-editor.tpl.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="26" selection-start="847" selection-end="847" vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="476">
+            <state line="17" column="6" selection-start="714" selection-end="714" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="391">
               <folding />
             </state>
           </provider>
@@ -114,7 +114,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="39" selection-start="826" selection-end="826" vertical-scroll-proportion="-11.653846" vertical-offset="71" max-vertical-offset="1003">
+            <state line="30" column="5" selection-start="1050" selection-end="1050" vertical-scroll-proportion="-19.615385" vertical-offset="0" max-vertical-offset="1003">
               <folding />
             </state>
           </provider>
@@ -123,7 +123,7 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="18" selection-start="601" selection-end="601" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+            <state line="22" column="0" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
               <folding />
             </state>
           </provider>
@@ -155,11 +155,11 @@
         <option value="$PROJECT_DIR$/test/unit/karma.conf.js" />
         <option value="$PROJECT_DIR$/demo/ttt.js" />
         <option value="$PROJECT_DIR$/src/timestamp-input.tpl.html" />
-        <option value="$PROJECT_DIR$/demo/app.js" />
         <option value="$PROJECT_DIR$/demo/index.html" />
+        <option value="$PROJECT_DIR$/test/unit/timestampSpec.js" />
         <option value="$PROJECT_DIR$/src/timestamp-editor.tpl.html" />
         <option value="$PROJECT_DIR$/src/timestamp.js" />
-        <option value="$PROJECT_DIR$/test/unit/timestampSpec.js" />
+        <option value="$PROJECT_DIR$/demo/app.js" />
       </list>
     </option>
   </component>
@@ -514,27 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="18" selection-start="601" selection-end="601" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="26" selection-start="847" selection-end="847" vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="476">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="39" selection-start="826" selection-end="826" vertical-scroll-proportion="-11.653846" vertical-offset="71" max-vertical-offset="1003">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/unit/timestampSpec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="642" column="0" selection-start="23972" selection-end="23972" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15011">
@@ -567,9 +546,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/demo/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="5" selection-start="1050" selection-end="1050" vertical-scroll-proportion="-19.615385" vertical-offset="0" max-vertical-offset="1003">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/timestamp-editor.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="6" selection-start="714" selection-end="714" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="391">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/timestamp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="212" column="73" selection-start="7764" selection-end="7771" vertical-scroll-proportion="-2.0731132" vertical-offset="5362" max-vertical-offset="7038">
+        <state line="86" column="47" selection-start="3733" selection-end="3733" vertical-scroll-proportion="0.4587264" vertical-offset="1073" max-vertical-offset="6970">
           <folding />
         </state>
       </provider>

@@ -4,17 +4,14 @@
  *   The 'LargeInteger' factory returns constructor which may be used to wrap Windows FileDate
  *   value as JS object
  *      Usage: new LargeInteger(value)
- *          value : string|number|Date - int64 value in string format on number or Date
-  *      Fields:
- *          value - int64 value in string format
+ *          value : string|Date - int64 value in string format or Date
  *      Methods:
- *          getValue() - returns value
+ *          getValue() - returns object with instance values
  *          compareTo(valueToCompere) - compares as instance value with valueToCompare
- *              valueToCompere : string|number|LargeInteger
+ *              valueToCompere : string|Date|LargeInteger
  *          getAsDate() - returns instance value as JS Date
  *          isUnspecified() - returns true if the instance has Unspecified value
  *          isNever() - returns true if the instance has Never value
- *          isDate() - returns true if the instance value can be represent as JS Date
  *      Overrides toString() and toJSON() functions.
  *
  *   The 'timestamp-editor' directive may be used to reset LargeInteger variable
@@ -36,7 +33,6 @@
  *      LargeInteger class can be used to represent Never value (LargeInteger.NEVER)
  *      or get value from specified date (new LargeInteger(date) -
  *      where date is JS Date object).
- *
  *
  */
 
@@ -111,7 +107,7 @@ angular.module('timestamp', [])
         // Apply sign to value
         var getSigned = function (value, isNegative) {
             return isNegative ? -value : value;
-        }
+        };
 
         var LargeInteger = function (value) {
 
@@ -172,13 +168,13 @@ angular.module('timestamp', [])
 
             // Returns true if the instance has Unspecified value
             this.isUnspecified = function () {
-                return hiPart === 0 && lowPart === 0
-            }
+                return hiPart === 0 && lowPart === 0;
+            };
 
             // Returns true if the instance has Never value
             this.isNever = function () {
                 return hiPart === NEVER_HI_PART && lowPart === NEVER_LOW_PART && !negative;
-            }
+            };
 
         };
 

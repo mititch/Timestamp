@@ -21,9 +21,5 @@ angular.module('app', ['ui.bootstrap', 'timestamp'])
                 $scope.validationValue = LargeInteger.NEVER;
             }
 
-
-            //$scope.validationValue = LargeInteger.NEVER;
-            // ??? $scope.validationValue = new LargeInteger(new Date());
-
         }
     ]);
